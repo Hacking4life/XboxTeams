@@ -1,0 +1,90 @@
+
+  
+  .pointer {
+    cursor: pointer;
+  }
+  .pointer:hover {
+    transform: scale(1.1);
+    transition: all 1s;
+  }
+  
+  /*------- Navigation -----------*/
+  .nav-link {
+    margin-left: 10px;
+  }
+  
+  /*------- Mate Card -----------*/
+  .img-thumbnail {
+    width: 200px;
+  }
+  
+  .male-color {
+    background-color: #e2f0ef;
+    padding: 0;
+  }
+  .female-color {
+    background-color: #f3e5e8;
+    padding: 0;
+  }
+  
+  .add-mark {
+    padding: 5px 3px;
+    float: left;
+    width: 20%;
+  }
+  
+  .heart {
+    margin-top: 5%;
+    width: 100%;
+    border-radius: 50%;
+  }
+  
+  .heart:hover {
+    background-color: #f76565;
+  }
+  
+  .favorMate {
+    background-color: #fd4545;
+  }
+  
+  .info {
+    padding: 5px 10px;
+    float: right;
+    width: 80%
+  }
+  
+  .age {
+    font-size: 15px;
+    margin-right: 10%;
+    float: left;
+  }
+  
+  .region {
+    font-size: 15px;
+    color: #000;
+    margin-right: 5%;
+    float: left;
+  }
+  .card-text
+  {
+      color:black ! important;
+  }
+  
+  /*------- Modal Window -----------*/
+  #show-mate-body {
+    background-color: #e7dfe9;
+  }
+  
+  p>a:first-child {
+    font-weight: 900;
+  }
+  
+  .user-img {
+    border: 1px solid #abadad;
+    border-radius: 5px;
+  }
+  
+  #show-mate-gender {
+    text-transform: capitalize;
+  }
+  

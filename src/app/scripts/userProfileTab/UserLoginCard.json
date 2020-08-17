@@ -1,0 +1,67 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+      {
+          "type": "Container",
+          "items": [
+              {
+                  "type": "TextBlock",
+                  "text": "Message from developers",
+                  "size": "large",
+                  "wrap": true,
+                  "horizontalAlignment": "center",
+                  "weight": "bolder",
+                  "color": "warning"
+              },
+              {
+                  "type": "TextBlock",
+                  "wrap": true,
+                  "text": "Your Login credentials are not cached by the application ",
+                  "horizontalAlignment": "Center"
+              },
+              {
+                  "type": "TextBlock",
+                  "text": "In case you wish to access this application without giving your Xbox live Id , then please proceed by clicking ' Continue without login'  option to view data linked with our developer account",
+                  "wrap": true
+              }
+          ],
+          "style": "good",
+          "bleed": true
+      },
+      {
+          "type": "ColumnSet",
+          "columns": [
+              {
+                  "type": "Column",
+                  "width": 2
+              }
+          ]
+      },
+      {
+          "type": "ActionSet",
+          "actions": [
+              {
+                  "type": "Action.Submit",
+                  "title": "Continue without login",
+                  "id": "userconsent",
+                  "style": "positive"
+              }
+          ],
+          "id": "login",
+          "horizontalAlignment": "Center"
+      },
+      {
+          "type": "TextBlock",
+          "spacing": "Large",
+          "text": "Kindly give your suggestions and feedback in feedback channel",
+          "height": "stretch",
+          "wrap": true,
+          "fontType": "Monospace",
+          "weight": "Lighter",
+          "color": "Attention",
+          "size": "Small"
+      }
+  ]
+}

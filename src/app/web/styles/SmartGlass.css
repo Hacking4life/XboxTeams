@@ -1,0 +1,669 @@
+body
+{
+	padding:0;margin:0;
+	background-color:#2d2d2d;
+}
+
+/*نظام الاكس بوكس من الداخل*/
+.xbox-system
+{
+	width:45%;
+	height:280px;
+	margin:2% 0 0 53%;
+	background-color:#0f0f0f;
+	box-shadow:-2px 3px 11px 2px black;
+	overflow:hidden;
+	position:relative;
+}
+.system
+{
+	width:90%;
+	height:93%;
+	margin:auto auto;
+	/*background-color:white; */
+	position:relative;
+}
+.system h1
+{
+	padding:10px 0 0 0;
+	text-transform:capitalize;
+	font-family:arial;
+	font-size:16px;
+	color:#c6c6c6;
+}
+
+/*خيارات النظام*/
+.system .options
+{
+	width:100%;
+	height:75%;
+	margin:auto auto;
+	/*background-color:red; */
+	overflow:hidden;
+	position:relative;
+}
+.system .options .option01, .option02, .option03, .option04
+{
+	width:49%;
+	height:50%;
+	/*background-color:black; */
+	position:relative;
+}
+.system .options .option01 a, .option02 a, .option03 a, .option04 a
+{
+	text-decoration:none;
+}
+.system .options .option01 a p, .option02 a p, .option03 a p, .option04 a p
+{
+	padding:5px 0 0 100px;
+	text-transform:capitalize;
+	font-family:arial;
+	font-size:16px;
+	color:#c6c6c6;
+}
+.system .options .option01 a i, .option02 a i, .option03 a i, .option04 a i
+{
+	height:49%;
+	background-color:#323232;
+	outline:2px solid #282828;
+	transition:all .3s ease;
+	font-size:27px;
+	color:#c7c7c7;
+	position:absolute;
+	top:13%;
+	left:1%;
+}
+.system .options .option01
+{
+	position:absolute;
+	top:0%;
+	left:0%
+}
+.system .options .option02
+{
+	position:absolute;
+	top:0%;
+	left:51%
+}
+.system .options .option03
+{
+	position:absolute;
+	top:44%;
+	left:0%
+}
+.system .options .option04
+{
+	position:absolute;
+	top:44%;
+	left:51%
+}
+.system .options .option01 a i
+{
+	width:21%;
+	padding:22px 0 0 33px;
+}
+.system .options .option02 a i
+{
+	width:22%;
+	padding:22px 0 0 30px;
+	background-color:#0e7c0f;
+	outline:2px solid #9ccb9b
+}
+.system .options .option03 a i
+{
+	width:21%;
+	padding:22px 0 0 33px;
+}
+.system .options .option04 a i
+{
+	width:20%;
+	padding:22px 0 0 35px;
+}
+
+/*تاثيرات الايقونات*/
+.system .options .option01 a i:hover, .option03 a i:hover, .option04 a i:hover
+{
+	background-color:#0e7c0f;
+	outline:2px solid #9ccb9b
+}
+/*نهاية تاثيرات الايقونات*/
+
+/*نهاية خيارات النظام*/
+
+/*رقم الاصدار*/
+.system p:last-child
+{
+	text-transform:capitalize;
+	font-family:arial;
+	font-weight:bold;
+	font-size:9px;
+	color:#c7c7c7;
+	position:absolute;
+	top:90%;
+	left:0%
+}
+/*نهاية رقم الاصدار*/
+
+/*نهاية نظام الاكس بوكس من الداخل*/
+
+/*يد التحكم*/
+.structure
+{
+	width:575px;
+	height:414px;
+	margin:-4% 0 0 5%;
+	/*background-color:black;*/
+	overflow:hidden;
+	position:relative;
+}
+
+/*ظلال*/
+.structure .shadows .shadow-top
+{
+	width:467px;
+	height:100px;
+	background-color:#141313;
+	box-shadow:0 -3px 11px 2px black;
+	border-top-right-radius:97%;
+	border-top-left-radius:97%;
+	position:absolute;
+	top:10%;
+	left:9.45%;
+}
+.structure .shadows .shadow-right
+{
+	width:138px;
+	height:274px;
+	background-color:#141313;
+	box-shadow:3px 0 11px 2px black;
+	border-bottom-right-radius:102%;
+	border-top-right-radius:8%;
+	transform:rotate(-24deg);
+	position:absolute;
+	top:26%;
+	left:77%
+}
+.structure .shadows .shadow-left
+{
+	width:138px;
+	height:274px;
+	background-color:#141313;
+	box-shadow:-3px 0 11px 2px black;
+	border-bottom-left-radius:102%;
+	border-top-left-radius:8%;
+	transform:rotate(24deg);
+	position:absolute;
+	top:26%;
+	left:-1%
+}
+/*نهاية الظلال*/
+
+/*الهيكل*/
+.structure .base
+{
+	width:438px;
+	height:230px;
+	background-color:#141313;
+	position:absolute;
+	top:34%;
+	left:12%
+}
+.structure .side-top
+{
+	width:467px;
+	height:100px;
+	background-color:#141313;
+	border-top-right-radius:97%;
+	border-top-left-radius:97%;
+	position:absolute;
+	top:10%;
+	left:9.45%;
+}
+.structure .side-right
+{
+	width:138px;
+	height:274px;
+	background-color:#141313;
+	border-bottom-right-radius:102%;
+	border-top-right-radius:8%;
+	transform:rotate(-24deg);
+	position:absolute;
+	top:26%;
+	left:78%
+}
+.structure .side-bottom
+{
+	width:452px;
+	height:300px;
+	background-color:#2d2d2d;
+	border-top-right-radius:40%;
+	border-top-left-radius:40%;
+	position:absolute;
+	top:72%;
+	left:10.70%;
+}
+.structure .side-left
+{
+	width:138px;
+	height:274px;
+	background-color:#141313;
+	border-bottom-left-radius:102%;
+	border-top-left-radius:8%;
+	transform:rotate(24deg);
+	position:absolute;
+	top:26%;
+	left:-2%
+}
+/*نهاية الهيكل*/
+
+/*الذراع اليمنى*/
+.structure .arm-right
+{
+	width:80px;
+	height:80px;
+	background-color:#1d1d1d;
+	box-shadow:0 0 10px 10px #010101;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:47%;
+	left:58%;
+}
+.structure .arm-right .circle01
+{
+	width:70px;
+	height:70px;
+	background-color:black;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:7%;
+	left:6%
+}
+.structure .arm-right .circle02
+{
+	width:66px;
+	height:66px;
+	background-color:#28292b;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:9%;
+	left:9%
+}
+.structure .arm-right .circle03
+{
+	width:62px;
+	height:62px;
+	background-color:#050505;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:12%;
+	left:11%
+}
+.structure .arm-right .circle04
+{
+	width:58px;
+	height:58px;
+	background-color:#28292b;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:14%;
+	left:14%
+}
+.structure .arm-right .circle05
+{
+	width:54px;
+	height:54px;
+	background-color:#050505;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:17%;
+	left:17%
+}
+/*نهاية الذراع اليمنى*/
+
+/*الذراع اليسرا من فوق*/
+.structure .arm-left-top
+{
+	width:80px;
+	height:80px;
+	background-color:#1d1d1d;
+	box-shadow:1px 1px 10px 10px #010101;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:27%;
+	left:14%;
+}
+.structure .arm-left-top .circle06
+{
+	width:70px;
+	height:70px;
+	background-color:black;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:7%;
+	left:6%
+}
+.structure .arm-left-top .circle07
+{
+	width:66px;
+	height:66px;
+	background-color:#28292b;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:9%;
+	left:9%
+}
+.structure .arm-left-top .circle08
+{
+	width:62px;
+	height:62px;
+	background-color:#050505;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:12%;
+	left:11%
+}
+.structure .arm-left-top .circle09
+{
+	width:58px;
+	height:58px;
+	background-color:#28292b;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:14%;
+	left:14%
+}
+.structure .arm-left-top .circle10
+{
+	width:54px;
+	height:54px;
+	background-color:#050505;
+	border-radius:50%;
+	position:relative;
+	position:absolute;
+	top:17%;
+	left:17%
+}
+/*نهاية الذراع اليسرا من فوق*/
+
+/*اسهم التحريك*/
+.structure .arrows
+{
+	width:95px;
+	height:95px;
+	background-color: aquamarine !important;
+	box-shadow:0 0 20px -6px #010101 inset;
+	border-radius:50%;
+	overflow:hidden;
+	cursor:pointer;
+	position:relative;
+	position:absolute;
+	top:46%;
+	left:28%;
+}
+.structure .arrows .arrow-top-bottom 
+{
+	width:22px;
+	height:81px;
+	background-color:#171515;
+	outline:2px solid #0e0e0e;
+	border-radius:10%;
+	position:absolute;
+	top:7%;
+	left:39%;
+}
+
+.structure .arrows .arrow-top-bottom2  
+{
+	width:22px;
+	height:40px;
+	background-color:#171515;
+	outline:2px solid #0e0e0e;
+	border-radius:10%;
+	position:absolute;
+	top:7%;
+	left:39%;
+}
+.structure .arrows .arrow-right-left
+{
+	width:42px;
+	height:22px;
+	background-color:#171515;
+	outline:2px solid #0e0e0e;
+	border-radius:10%;
+	position:absolute;
+	top:38%;
+	left:6%;
+}
+.structure .arrows .arrow-right-left2
+{
+	width:84px;
+	height:22px;
+	background-color:#171515;
+	outline:2px solid #0e0e0e;
+	border-radius:10%;
+	position:absolute;
+	top:38%;
+	left:6%;
+}
+.structure .arrows .hide
+{
+	width:22px;
+	height:33px;
+	background-color:#171515;
+	position:absolute;
+	top:34%;
+	left:39%;
+}
+/*نهاية اسهم التحريك*/
+
+/*ازرار التحكم*/
+.structure .buttons
+{
+	width:130px;
+	height:130px;
+	/*background-color:red;*/
+	border-radius:50%;
+	overflow:hidden;
+	position:relative;
+	position:absolute;
+	top:22%;
+	left:70%
+}
+.structure .buttons .button-top, .button-right, .button-bottom, .button-left
+{
+	width:40px;
+	height:40px;
+	background-color:#050203;
+	box-shadow:-4px 0 0 -2px #424242;
+	border-radius:50%;
+	cursor:pointer;
+	overflow:hidden;
+	position:relative;
+}
+.structure .buttons .button-top p, .button-right p, .button-bottom p, .button-left p
+{
+	text-transform:uppercase;
+	font-family:arial;
+	font-weight:bold;
+	font-size:30px;
+}
+.structure .buttons .button-top .shadow, .button-right .shadow, .button-bottom .shadow, .button-left .shadow
+{
+	width:40px;
+	height:40px;
+	background-color:rgba(255,255,255,0.2);
+	border-radius:50%;
+	position:absolute;
+	top:-30%;
+	left:50%
+}
+.structure .buttons .button-top
+{
+	position:absolute;
+	top:7%;
+	left:34%
+}
+.structure .buttons .button-right
+{
+	position:absolute;
+	top:37%;
+	left:63%;
+}
+.structure .buttons .button-bottom
+{
+	position:absolute;
+	top:63%;
+	left:34%;
+}
+.structure .buttons .button-left
+{
+	position:absolute;
+	top:37%;
+	left:5%;
+}
+.structure .buttons .button-top p
+{
+	color:#d7be0e;
+	position:absolute;
+	top:-64%;
+	left:25%
+}
+.structure .buttons .button-right p
+{
+	color:#cd2b2d;
+	position:absolute;
+	top:-65%;
+	left:27%;
+}
+.structure .buttons .button-bottom p
+{
+	color:#8ac44c;
+	position:absolute;
+	top:-69%;
+	left:25%
+}
+.structure .buttons .button-left p
+{
+	color:#339bcc;
+	position:absolute;
+	top:-66%;
+	left:25%;
+}
+/*نهاية ازرار التحكم*/
+
+/*ازرار اضافية*/
+.structure .extra-buttons
+{
+	width:232px;
+	height:34px;
+	/*background-color:red;*/
+	overflow:hidden;
+	position:relative;
+	position:absolute;
+	top:31%;
+	left:30%
+}
+.structure .extra-buttons .button-menu, .button-link
+{
+	width:30px;
+	height:30px;
+	background-color:#232222;
+	box-shadow:0 0 0 2px black;
+	border-radius:50%;
+	cursor:pointer;
+	position:relative;
+}
+.structure .extra-buttons .button-menu i, .button-link i
+{
+	font-size:17px;
+	color:#787878;
+}
+.structure .extra-buttons .button-menu
+{
+	position:absolute;
+	top:4%;
+	left:64%
+}
+.structure .extra-buttons .button-link
+{
+	position:absolute;
+	top:4%;
+	left:25%
+}
+.structure .extra-buttons .button-menu i
+{
+	position:absolute;
+	top:20%;
+	left:27%	
+}
+.structure .extra-buttons .button-link i
+{
+	position:absolute;
+	top:25%;
+	left:25%	
+}
+
+.structure .logo
+{
+	width:50px;
+	height:50px;
+	background-image:url("https://img1.mrkzgulf.com/i/00122/3ru38bbtfl0r.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	opacity:.9;
+	position:relative;
+	position:absolute;
+	top:16%;
+	left:46%
+}
+
+.design-name
+{
+	width:41%;
+	height:70px;
+	margin:-48% 0 0 2%;
+	transition:all .5s ease;
+	overflow:hidden;
+	opacity:.3;
+	position:relative
+}
+.design-name .logo-copy
+{
+	width:60px;
+	height:60px;
+	background-image:url("https://img1.mrkzgulf.com/i/00122/5zcp1tkiww7m.png");
+	background-repeat:no-repeat;
+	background-size:cover;
+	position:absolute;
+	top:6%;
+	left:1%;
+}
+.design-name h1
+{
+	text-transform:uppercase;
+	font-family:arial;
+	font-weight:bold;
+	font-size:30px;
+	color:#eff0f2;
+	position:absolute;
+	top:-3%;
+	left:13%;
+}
+.design-name:hover
+{
+	opacity:.9;
+	cursor:pointer
+}
+
+

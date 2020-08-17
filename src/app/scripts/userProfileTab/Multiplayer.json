@@ -1,0 +1,131 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.2",
+    "body": [
+        {
+            "type": "TextBlock",
+            "text": "Create a Multi-Player Event",
+            "horizontalAlignment": "Center",
+            "size": "Medium",
+            "weight": "Bolder",
+            "color": "Accent"
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.ShowCard",
+            "title": "Game                                                                                ",
+            "card": {
+                "type": "AdaptiveCard",
+                "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                "body": [
+                    {
+                        "type": "Container",
+                        "id": "${nameCard.idPrefix}Properties",
+                        "items": [
+                            {
+                                "type": "Input.Text",
+                                "label": "${label}",
+                                "id": "${id}"
+                            }
+                        ]
+                    },
+                    {
+                        "type": "Input.Text",
+                        "placeholder": "Description",
+                        "spacing": "Small",
+                        "isMultiline": true
+                    }
+                ],
+                "actions": [
+                    {
+                        "type": "Action.ShowCard",
+                        "title": "Event Details",
+                        "card": {
+                            "type": "AdaptiveCard",
+                            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                            "body": [
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Enter Pool ID",
+                                    "horizontalAlignment": "Center",
+                                    "fontType": "Default",
+                                    "color": "Accent",
+                                    "isSubtle": true,
+                                    "weight": "Bolder"
+                                },
+                                {
+                                    "type": "Input.Number",
+                                    "placeholder": "Pool ID ( optional)",
+                                    "spacing": "None"
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Number of Players required",
+                                    "horizontalAlignment": "Center",
+                                    "weight": "Bolder",
+                                    "color": "Accent",
+                                    "isSubtle": true
+                                },
+                                {
+                                    "type": "Input.Number",
+                                    "placeholder": "Number of Players required ( minimum)",
+                                    "min": 1,
+                                    "max": 10,
+                                    "spacing": "None"
+                                },
+                                {
+                                    "type": "TextBlock",
+                                    "text": "Date and Time of Event",
+                                    "weight": "Bolder",
+                                    "color": "Accent",
+                                    "isSubtle": true,
+                                    "horizontalAlignment": "Center"
+                                },
+                                {
+                                    "type": "Input.Date",
+                                    "spacing": "None"
+                                },
+                                {
+                                    "type": "Input.Time",
+                                    "spacing": "Small"
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "type": "Action.ShowCard",
+                                    "title": "Preferences",
+                                    "card": {
+                                        "type": "AdaptiveCard",
+                                        "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                                        "actions": [
+                                            {
+                                                "type": "Action.Submit",
+                                                "title": "Post to Game club",
+                                                "style": "positive"
+                                            }
+                                        ],
+                                        "body": [
+                                            {
+                                                "type": "Input.Toggle",
+                                                "title": "Add to calendar",
+                                                "spacing": "None",
+                                                "value": "false",
+                                                "id": "Add to calendar"
+                                            }
+                                        ]
+                                    },
+                                    "id": "Additional Prefrerences",
+                                    "style": "destructive"
+                                }
+                            ]
+                        },
+                        "style": "destructive"
+                    }
+                ]
+            },
+            "style": "destructive"
+        }
+    ]
+}

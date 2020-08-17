@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <link href="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="https://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+  <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+<script>
+
+      $( document ).ready(function() 
+      {
+  setTimeout(function(){  //Handles the carousel thumbnails
+    $('[id^=carousel-selector-]').click(function () {
+        debugger;
+        var id_selector = $(this).attr("id");
+        var id = id_selector.substr(id_selector.length - 1);
+         id = parseInt(id);
+        $('#myCarousel').carousel(id);
+    });
+  
+  
+    // When the carousel slides, auto update the text
+    $('#myCarousel').on('slid', function (e) {
+        debugger;
+        var id = $('.item.active').data('slide-number');
+        $('#carousel-text').html($('#slide-content-' + id).html());
+    }); }, 1000);
+   
+  
+  });
+</script>
+</head>
+
+<body style="background-color:cadetblue !important">
+  <script>
+    microsoftTeams.initialize();
+</script>
+  <div id='app' style="
+  padding-top: 25px;
+">
+  </div>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <script type='text/javascript'>
+     xboxLiveTeamsBot.screenshots.render(document.getElementById('app'), {});
+  </script>
+</body>
+
+</html>

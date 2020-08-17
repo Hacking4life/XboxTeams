@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Change GamerTag</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+</head>
+
+<body>
+  <script>
+    microsoftTeams.initialize();
+</script>
+  <div id='app' style="
+  padding-top: 25px;
+">
+    Please wait while the data is loaded..........
+  </div>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <script type='text/javascript'>
+     xboxLiveTeamsBot.gamerTag.render(document.getElementById('app'), {});
+  </script>
+</body>
+
+</html>

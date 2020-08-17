@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/98c5eaff-dd27-48d9-a98c-1fa65978bd44/resourceGroups/Hackathon/providers/Microsoft.Web/sites/XboxLiveTeams",
+    "appService.deploySubpath": "."
+}

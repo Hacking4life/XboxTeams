@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>User Profile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
+  <style>
+    .gamercard {
+        border: 1px solid #bdbec1;
+        padding: 1px;
+        width: 600px;
+        font-family: arial, sans-serif;
+        font-size: 12px;
+        color: #bdbec1;
+        background-image: -webkit-linear-gradient(#ddd, #fff, #e9fdce);
+        background-image: -moz-linear-gradient(top, #ddd, #fff, #e9fdce);
+        background-image: -ms-linear-gradient(#ddd, #fff, #e9fdce);
+        background-image: -o-linear-gradient(#ddd, #fff, #e9fdce);
+        background-image: linear-gradient(#ddd, #fff, #e9fdce);
+        margin-left: 100px;
+    }
+        .gamercard img {
+            display: block;
+        }
+        .gamercard .avatar {
+            float: right;
+            width: 150px;
+            height: 300px;
+            margin: -60px 0 0 50px;
+        }
+        .gamercard h1 {
+            font-weight: normal;
+            color: #78BB58;
+        }
+            .gamercard h1 img {
+                display: inline-block;
+                padding-right: 10px;
+                width: 24px;
+                height: 24px;
+            }
+        .gamercard h2 {
+            color: #111;
+            font-size: 16px;
+            font-weight: normal;
+            margin-top: 15px;
+        }
+        .gamercard ul {
+            list-style-type: none;
+        }
+            .gamercard ul li {
+                padding-top: 8px;
+            }
+                .gamercard ul li strong {
+                    color: #666;
+                }
+            .gamercard ul.games li {
+                display: inline-block;
+                margin-right: 20px;
+                text-align: center;
+                font-weight: bold;
+                width: 85px;
+                vertical-align: top;
+            }
+                .gamercard ul.games li img {
+                    margin: 0 auto;
+                    width: 85px;
+                }
+        .gamercard a {
+            color: #78bb58;
+        }
+        .gamercard .clear {
+            clear: both;
+        }
+</style>
+</head>
+
+<body>
+  <script>
+    microsoftTeams.initialize();
+</script>
+  <div id='app' style="
+  padding-top: 25px;
+">
+  </div>
+  <!-- inject:js -->
+  <!-- endinject -->
+  <script type='text/javascript'>
+     xboxLiveTeamsBot.gamercard.render(document.getElementById('app'), {});
+  </script>
+</body>
+
+</html>
+
+<!-- https://codepen.io/edlin/pen/AXzbXw -->

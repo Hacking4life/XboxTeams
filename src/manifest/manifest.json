@@ -1,0 +1,53 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.6/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.6",
+  "id": "00000000-0000-0000-0000-000000000000",
+  "version": "1.0.0",
+  "packageName": "com.contoso.xboxlive",
+  "developer": {
+    "name": "Hack4Teams",
+    "websiteUrl": "https://www.microsoft.com",
+    "privacyUrl": "https://www.microsoft.com/privacy.html",
+    "termsOfUseUrl": "https://www.microsoft.com/tou.html"
+  },
+  "name": {
+    "short": "Xbox Live Bot",
+    "full": "Xbox Live Teams Bot"
+  },
+  "description": {
+    "short": "Teams app for Xbox",
+    "full": "Teams app for Xbox which has a Inbuilt Microsoft Bot and Custom tabs which can be used to Xbox Live Profile management and integrating Xbox smartglass in teams application."
+  },
+  "icons": {
+    "outline": "icon-outline.png",
+    "color": "icon-color.png"
+  },
+  "accentColor": "#D85028",
+  "configurableTabs": [
+    {
+      "configurationUrl": "https://b9217c5c550a.ngrok.io/userProfileTab/config.html?name={loginHint}&tenant={tid}&group={groupId}&theme={theme}",
+      "canUpdateConfiguration": true,
+      "scopes": [
+        "team"
+      ],
+      "sharePointPreviewImage": "https://b9217c5c550a.ngrok.io/assets/userProfileTab-preview.png",
+      "supportedSharePointHosts": [
+        "sharePointFullPage",
+        "sharePointWebPart"
+      ]
+    }
+    
+  ],
+  "staticTabs": [],
+  "bots": [],
+  "connectors": [],
+  "composeExtensions": [],
+  "permissions": [
+    "identity",
+    "messageTeamMembers"
+  ],
+  "validDomains": [
+    "{{HOSTNAME}}"
+  ],
+  "showLoadingIndicator": false
+}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+  <meta charset="UTF-8">
+  <title>Xbox Live</title>
+  <head>
+    <script src="https://statics.teams.microsoft.com/sdk/v1.0/js/MicrosoftTeams.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+</head>
+
+<body style="background-color: #2d2d2d !important">
+  <script>
+    microsoftTeams.initialize();
+        </script>
+
+ <div id='app'>
+        Loading...
+      </div>
+      <!-- inject:js -->
+      <!-- endinject -->
+      <script type='text/javascript'>
+        xboxLiveTeamsBot.SmartGlass.render(document.getElementById('app'), {});
+      </script>
+</body>
+</html>

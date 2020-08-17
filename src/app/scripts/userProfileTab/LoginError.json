@@ -1,0 +1,47 @@
+{
+  "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+  "type": "AdaptiveCard",
+  "version": "1.2",
+  "body": [
+      {
+          "type": "Container",
+          "items": [
+              {
+                  "type": "TextBlock",
+                  "text": "Login Error",
+                  "size": "large",
+                  "wrap": true,
+                  "horizontalAlignment": "center",
+                  "weight": "bolder",
+                  "color": "attention"
+              },
+              {
+                  "type": "TextBlock",
+                  "wrap": true,
+                  "text": "Authentication failed , please check your Username and Password",
+                  "horizontalAlignment": "Center"
+              },
+              {
+                  "type": "TextBlock",
+                  "text": "Incase you have received ' suspicious activity Mail' from Microsoft kindly review the activity and allow to continue using this application",
+                  "wrap": true
+              }
+          ],
+          "style": "good",
+          "bleed": true
+      },
+      {
+          "type": "ActionSet",
+          "actions": [
+              {
+                  "type": "Action.Submit",
+                  "title": "Continue without login",
+                  "id": "userconsent",
+                  "style": "positive"
+              }
+          ],
+          "id": "login",
+          "horizontalAlignment": "Center"
+      }
+  ]
+}

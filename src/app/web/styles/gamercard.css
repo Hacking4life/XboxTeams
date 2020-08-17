@@ -1,0 +1,437 @@
+@import 'https://fonts.googleapis.com/css?family=Exo|Exo+2';
+
+::-webkit-input-placeholder {
+   color: #107c10;
+}
+
+:-moz-placeholder {
+   color: #107c10;
+}
+
+::-moz-placeholder {
+   color: #107c10;
+}
+
+:-ms-input-placeholder { 
+   color: #107c10;
+}
+
+body {
+  position: relative;
+  margin: 0px;
+}
+
+#container {
+  width: auto;
+  height: 100%;
+  position: relative;
+}
+
+#header {
+  width: auto;
+  height: 150px;
+  display: block;
+}
+
+#navigation {
+  width: auto;
+  height: 55px;
+  display: block;
+  background: #107c10;
+}
+
+.heading {
+  font-size: 40px;
+  font-family: 'Exo', sans-serif;
+  font-style: italic;
+  color: white;
+  text-shadow: 3px 3px #323234;
+  text-align: center;
+  background-image: url("http://martincrownover.com/blog/wp-content/uploads/2015/01/x1bg-circles-black-green-trim.jpg");
+  background-position: center;
+  background-size: cover;
+  padding: 50px 0px 50px 0px;
+}
+
+.heading.-alt {
+  background-image: url('http://martincrownover.com/blog/wp-content/uploads/2015/01/x1bg-circles-green.jpg');
+}
+
+.search-box{
+  width: 400px;
+  display: block;
+  margin: 0 auto;
+  padding: 5px 35px 5px 0px;
+}
+
+
+
+.search-icon{
+  position: relative;
+  float: right;
+  width: 30px;
+  height: 30px;
+  top: -38px;
+  right: 15px;
+}
+
+#profile {
+  min-height: 1000px;
+  height: 100%;
+  display: block;
+  margin: auto;
+}
+
+#profile-header {
+  width: 80%;
+  max-width: 800px;
+  height: 100px;
+  background: #F3F3F3;
+  margin: 50px auto;
+  border-bottom: 10px solid #107c10;
+}
+
+#profile-header .avatar {
+  max-width: 64px;
+  max-height: 64px;
+  padding: 18px 18px 18px 18px;
+  display: block;
+  float: left;
+}
+
+.gamertag {
+  font-size: 20px;
+  font-family: 'Exo 2', sans-serif;
+  color: #FBB917;
+  display: inline-block;
+  margin: 25px 0px 0px 0px;
+  float: left;
+}
+
+.activity-status {
+  font-size: 12px;
+  font-family: 'Exo 2', sans-serif;
+  color: grey;
+  display: block;
+  margin: 50px 0px 0px -90px;
+  float: left;
+}
+
+#gamerscore {
+  height: 20px;
+  text-align: right;
+  display: inline-block;
+  float: right;
+  margin: 25px 18px 0px 0px;
+}
+
+.gamerscore-icon {
+  margin: 2px 10px 0px 0px;
+  display: inline-block;
+}
+
+.gamerscore {
+  font-size: 20px;
+  font-family: 'Exo 2', sans-serif;
+  text-align: right;
+  color: #323234;
+  display: inline-block;
+  float: right;
+  margin: 0px 0px 0px 0px;
+}
+
+#profile-main {
+  width: 80%;
+  max-width: 800px;
+  height: 100px;
+  margin: 20px auto;
+  padding :0px 0px 0px 0px;
+  display: block;
+}
+
+#profile-games {
+  width: 70%;
+  display: inline-block;
+  background: #F3F3F3;
+  float: left;
+overflow-y: scroll;
+height: 425px;
+}
+
+.profile-games-heading {
+  font-size: 18px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  position: relative;
+  margin: 0px auto 18px auto;
+  padding: 18px 18px 4px 18px;
+  text-align: left;
+  border-bottom: 5px solid #107c10;
+}
+
+#profile-game {
+  width: 350px;
+  height: 82px;
+  background: white;
+  margin: 0px 0px 18px 18px;
+  display: block;
+  float: left;
+}
+.game-icon {
+  margin: 9px 9px 9px 9px;
+  display: inline-block;
+  float: left;
+}
+
+.game-title {
+  font-size: 16px;
+  font-family: 'Exo 2', sans-serif;
+  color: grey;
+  display: block;
+  margin: 0px 0px 0px 0px;
+  padding: 21px 0px 0px 0px;
+  float: left;
+}
+
+.game-last-played {
+  font-size: 12px;
+  font-family: 'Exo 2', sans-serif;
+  color: grey;
+  display: block;
+  margin: 0px 0px 0px 0px;
+  padding: 41px 0px 0px 0px;
+}
+
+#profile-game-stats {
+  width: 132px;
+  height: 82px;
+  margin: 0px 18px 18px 0px;
+  display: inline-block;
+  float: left;
+}
+
+#profile-game-gamerscore {
+  max-width: 134px;
+  max-height: 41px;
+  background: white;
+  padding: 0px 0px 3px 0px;
+  margin: 0px 0px 0px 0px;
+  display: block;
+  background: white;
+}
+
+.game-gamerscore-title {
+  font-size: 10px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  display: block;
+  margin: 0px 9px 0px 0px;
+  padding: 9px 0px 2px 9px;
+  border-bottom: 1px solid #107c10;
+}
+
+.game-gamerscore-container {
+  width: 114px;
+  height: 10px;
+  background: #F3F3F3;
+  display: block;
+  margin: 4px 9px 0px 9px;
+  padding: 0px 0px 0px 0px;
+}
+
+.game-gamerscore-container > .game-gamerscore-percentage {
+  height: 10px;
+  background: #5dc21e;
+}
+
+.game-gamerscore-earned {
+  font-size: 8px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  text-align: center;
+  margin: -10px 0px 0px 0px;
+}
+
+#profile-game-achievements {
+  max-width: 134px;
+  max-height: 41px;
+  background: white;
+  padding: 0px 0px 9px 0px;
+  margin: 0px 0px 0px 0px;
+  display: block;
+  background: white;
+}
+
+.game-achievements-title {
+  font-size: 10px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  display: block;
+  margin: 0px 9px 0px 0px;
+  padding: 3px 0px 2px 9px;
+  border-bottom: 1px solid #107c10;
+}
+
+.game-achievements-container {
+  width: 114px;
+  height: 10px;
+  background: #F3F3F3;
+  display: block;
+  margin: 4px 9px 0px 9px;
+  padding: 0px 0px 0px 0px;
+}
+
+.game-achievements-earned {
+  font-size: 8px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  text-align: center;
+  margin: -10px 0px 0px 0px;
+}
+
+.game-achievements-container > .game-achievements-percentage {
+  height: 10px;
+  background-color: #5dc21e;
+}
+
+#profile-bio {
+  width: 30%;
+  background: #F3F3F3;
+  display: block;
+  float: right;
+  height: 425px;
+  margin: 0px 0px 0px 0px;
+}
+
+.avatar-body {
+  display: block;
+  margin: auto;
+}
+
+.avatar-location-heading {
+  font-size: 18px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  display: block;
+  margin: auto;
+  padding: 18px 18px 4px 18px;
+  text-align: left;
+  border-bottom: 5px solid #107c10;
+}
+
+.avatar-location {
+  font-size: 16px;
+  font-family: 'Exo 2', sans-serif;
+  color: grey;
+  display: block;
+  margin: 0px 0px 0px 0px;
+  padding: 9px 18px 18px 18px;
+  text-align: left;
+}
+
+.avatar-motto-heading {
+  font-size: 18px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  display: block;
+  margin: auto;
+  padding: 18px 18px 4px 18px;
+  text-align: left;
+  border-bottom: 5px solid #107c10;
+}
+
+.avatar-motto {
+  font-size: 12px;
+  font-family: 'Exo 2', sans-serif;
+  color: grey;
+  display: block;
+  margin: 0px 0px 0px 0px;
+  padding: 9px 18px 18px 18px;
+  text-align: left;
+}
+
+.avatar-bio-heading {
+  font-size: 18px;
+  font-family: 'Exo 2', sans-serif;
+  color: #107c10;
+  display: block;
+  margin: auto;
+  padding: 18px 18px 4px 18px;
+  text-align: left;
+  border-bottom: 5px solid #107c10;
+}
+
+.avatar-bio {
+  font-size: 12px;
+  font-family: 'Exo 2', sans-serif;
+  color: grey;
+  display: block;
+  margin: 0px 0px 0px 0px;
+  padding: 9px 18px 18px 18px;
+  text-align: left;
+}
+
+.avatar-tenure:before {
+  content: " ";
+  position: absolute;
+  top: -12px;
+  left: -12px;
+  right: -12px;
+  bottom: -12px;
+  border: 2px solid #107c10;
+  border-radius: 50%;
+}
+
+.avatar-tenure {
+  font-size: 48px;
+  font-family: 'Exo 2', sans-serif;
+  width: 62px;
+  height: 62px;
+  color: #107c10;
+  text-align: center;
+  display: block;
+  position: relative;
+  border: 4px solid #107c10;
+  border-radius: 50%;
+  padding: 0px 0px 0px 0px;
+  margin: 32px auto 50px auto;
+}
+
+#footer {
+  width: 100%;
+  height: 150px;
+  display: block;
+  position: relative;
+  background: #107c10;
+}
+
+.footer-heading {
+  font-size: 20px;
+  font-family: 'Exo', sans-serif;
+  font-style: italic;
+  color: white;
+  text-shadow: 2px 2px #323234;
+  text-align: center;
+  padding: 50px 0px 0px 0px;
+}
+
+.footer-info {
+  font-size: 15px;
+  font-family: 'Exo', sans-serif;
+  color: white;
+  text-shadow: 2px 2px #323234;
+  text-align: center;
+  padding: 5px 0px 0px 0px;
+}
+
+.header-toggle {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  background: black;
+  color: white;
+  display: block;
+  z-index: 1;
+  padding: 10px;
+  font-family: 'Exo', sans-serif;
+}
