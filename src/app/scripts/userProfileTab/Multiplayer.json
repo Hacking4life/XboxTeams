@@ -15,7 +15,7 @@
     "actions": [
         {
             "type": "Action.ShowCard",
-            "title": "Game                                                                                ",
+            "title": "Game",
             "card": {
                 "type": "AdaptiveCard",
                 "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
