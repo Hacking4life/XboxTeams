@@ -26,8 +26,9 @@
                         "items": [
                             {
                                 "type": "Input.Text",
+                                "placeholder": "Title",
                                 "label": "${label}",
-                                "id": "${id}"
+                                "id": "Title"
                             }
                         ]
                     },
@@ -35,7 +36,8 @@
                         "type": "Input.Text",
                         "placeholder": "Description",
                         "spacing": "Small",
-                        "isMultiline": true
+                        "isMultiline": true,
+                        "id": "Description"
                     }
                 ],
                 "actions": [
@@ -54,11 +56,13 @@
                                     "color": "Accent",
                                     "isSubtle": true,
                                     "weight": "Bolder"
+                                  
                                 },
                                 {
                                     "type": "Input.Number",
                                     "placeholder": "Pool ID ( optional)",
-                                    "spacing": "None"
+                                    "spacing": "None",
+                                    "id": "PoolId"
                                 },
                                 {
                                     "type": "TextBlock",
@@ -73,7 +77,8 @@
                                     "placeholder": "Number of Players required ( minimum)",
                                     "min": 1,
                                     "max": 10,
-                                    "spacing": "None"
+                                    "spacing": "None",
+                                    "id": "NOP"
                                 },
                                 {
                                     "type": "TextBlock",
@@ -85,11 +90,13 @@
                                 },
                                 {
                                     "type": "Input.Date",
-                                    "spacing": "None"
+                                    "spacing": "None",
+                                    "id": "Date"
                                 },
                                 {
                                     "type": "Input.Time",
-                                    "spacing": "Small"
+                                    "spacing": "Small",
+                                    "id": "Time"
                                 }
                             ],
                             "actions": [

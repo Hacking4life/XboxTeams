@@ -1,22 +1,21 @@
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
-
-
 import {
     AttachmentLayoutTypes, CardAction,
     TeamsActivityHandler,
     BotFrameworkAdapter,
     MemoryStorage,
     ConversationState,
-    TurnContext, ActionTypes, CardFactory
+    TurnContext, ActionTypes, CardFactory, UserState
 } from 'botbuilder';
-
+import { AuthBot } from "../app/SignIn/authBot"
+import { MainDialog } from "../app/SignIn/signInDialog"
 
 // Create adapter.
 // See https://aka.ms/about-bot-adapter to learn more about adapters.
 export const adapter = new BotFrameworkAdapter({
-    appId: "9cf8d5d2-15b1-4014-a857-a32fe04b0450",
-    appPassword: "-1~.y8NC8s9-6NOl8_vsscEdC0.S4~jN22",
+    appId: "d7777f39-1e8f-46e8-8aaf-227fcfa4429c",
+    appPassword: "L8EA~VXr5D.S8pHYJfKMPkZ3~_L3-nSY2A",
 });
 
 adapter.onTurnError = async (context, error) => {
@@ -27,7 +26,15 @@ adapter.onTurnError = async (context, error) => {
     // NOTE: In production environment, you should consider logging this to Azure
     //       application insights.
     console.error(`\n [onTurnError] unhandled error: ${error}`);
+    // Send a trace activity, which will be displayed in Bot Framework Emulator
+    await context.sendTraceActivity(
+        'OnTurnError Trace',
+        `${error}`,
+        'https://www.botframework.com/schemas/error',
+        'TurnError'
+    );
 
+    // Send a message to the user
     // Clear out state
     await conversationState.delete(context);
     // Send a message to the user
@@ -42,6 +49,7 @@ const memoryStorage = new MemoryStorage();
 
 // Create conversation state with in-memory storage provider.
 const conversationState = new ConversationState(memoryStorage);
+const userState = new UserState(memoryStorage);
 
 
 export class EchoBot extends TeamsActivityHandler {
@@ -51,9 +59,11 @@ export class EchoBot extends TeamsActivityHandler {
             console.info("Activity received")
             if (context.activity.type == "message") {
                 TurnContext.removeRecipientMention(context.activity);
+                console.info(context.activity.value);
                 if (context.activity.text == null) {
                     return;
                 }
+
                 const text: string = context.activity.text.trim().toLocaleLowerCase();
                 if (text == "help") {
                     const gc = CardFactory.thumbnailCard(
@@ -123,15 +133,20 @@ export class EchoBot extends TeamsActivityHandler {
                         attachments: [gc, family, achievements, screenshots, gameclips]
                     });
                 }
-                else if (text == 'achievements' || text == 'gameclips' || text == 'screenshots' || text == 'family') {
+                else if (text == 'achievements' || text == 'gameclips' || text == 'screenshots' || text == 'family' || text == 'gamercard') {
+                    var deeplink = 'https://teams.microsoft.com/l/entity/d7777f39-1e8f-46e8-8aaf-227fcfa4429c/xboxlive?webUrl=https://tasklist.example.com/123&label=Xbox Live';
+                    console.info(deeplink);
                     const card = CardFactory.heroCard(
                         'Coming Soon',
                         ['https://img.freepik.com/free-vector/coming-soon-message-illuminated-with-light-projector_1284-3622.jpg?size=338&ext=jpg'],
                         [
+                            {
+                                title: 'Xbox Live',
+                                type: ActionTypes.OpenUrl,
+                                value: deeplink,
+                                text: 'Chat support for this functionality is not availabl yet , click the button to navigate to our custom Tab'
+                            }
                         ],
-                        {
-                            text: '<b>This feature is not yet available , visit the Xbox Live custom tab for this functionality</b>'
-                        }
                     )
                     await context.sendActivity({ attachments: [card] });
                 }
@@ -139,6 +154,13 @@ export class EchoBot extends TeamsActivityHandler {
                     var AdaptiveCard = require('../app/scripts/userProfileTab/Multiplayer.json');
                     const card = CardFactory.adaptiveCard(AdaptiveCard);
                     await context.sendActivity({ attachments: [card] });
+                }
+                else if (text == 'invite') {
+                    const dialog = new MainDialog();
+
+                    const bot = new AuthBot(conversationState, userState, dialog);
+
+                    await bot.run(context);
                 }
                 else {
                     const card = CardFactory.heroCard(
@@ -166,9 +188,9 @@ export class EchoBot extends TeamsActivityHandler {
                                 value: 'multiplayer'
                             },
                             {
-                                title: 'About US',
-                                type: ActionTypes.OpenUrl,
-                                value: 'https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-howto-deploy-azure?view=azure-bot-service-4.0'
+                                title: 'Invite Your Friends',
+                                type: ActionTypes.ImBack,
+                                value: 'invite'
                             }
                         ]
                     );
