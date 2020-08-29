@@ -44,6 +44,8 @@ adapter.onTurnError = async (context, error) => {
     // in the manifest, the bot will not be allowed to message users.
 };
 
+
+
 // Define state store for your bot.
 const memoryStorage = new MemoryStorage();
 
@@ -55,15 +57,89 @@ const userState = new UserState(memoryStorage);
 export class EchoBot extends TeamsActivityHandler {
     constructor() {
         super();
+        console.info("Activity ")
         this.onMessage(async (context, next) => {
-            console.info("Activity received")
             if (context.activity.type == "message") {
                 TurnContext.removeRecipientMention(context.activity);
                 console.info(context.activity.value);
                 if (context.activity.text == null) {
-                    return;
+                    const card = CardFactory.adaptiveCard(
+                        {
+                            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+                            "type": "AdaptiveCard",
+                            "version": "1.3",
+                            "body": [
+                                {
+                                    "type": "ColumnSet",
+                                    "columns": [
+                                        {
+                                            "type": "Column",
+                                            "width": 2,
+                                            "items": [
+                                                {
+                                                    "type": "TextBlock",
+                                                    "text": "Event Created"
+                                                },
+                                                {
+                                                    "type": "TextBlock",
+                                                    "text": `${context.activity.value.Description}`,
+                                                    "weight": "Bolder",
+                                                    "size": "ExtraLarge",
+                                                    "spacing": "None"
+                                                },
+                                                {
+                                                    "type": "TextBlock",
+                                                    "text": `An event has been created at ${context.activity.value.Date}  :  ${context.activity.value.Time}. \n`,
+                                                    "size": "Small",
+                                                    "wrap": true,
+                                                    "maxLines": 3
+                                                },
+                                                {
+                                                    "type": "FactSet",
+                                                    "facts": [
+                                                        {
+                                                            "title": "Pool ID :",
+                                                            "value": `${context.activity.value.PoolId}`
+                                                        },
+                                                        {
+                                                            "title": "Number of players :",
+                                                            "value": `${context.activity.value.NOP}`
+                                                        },
+                                                        {
+                                                            "title": "Game :",
+                                                            "value": `${context.activity.value.Title}`
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "type": "Column",
+                                            "width": 1,
+                                            "items": [
+                                                {
+                                                    "type": "Image",
+                                                    "url": "https://opengameart.org/sites/default/files/controllerCover.png",
+                                                    "size": "auto"
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ],
+                            "actions": [
+                                {
+                                    "type": "Action.OpenUrl",
+                                    "title": "Request to join",
+                                    "url": "${url}",
+                                    "style": "destructive"
+                                }
+                            ]
+                        }
+                    );
+                    await context.sendActivity({ attachments: [card] });
                 }
-
+else{
                 const text: string = context.activity.text.trim().toLocaleLowerCase();
                 if (text == "help") {
                     const gc = CardFactory.thumbnailCard(
@@ -138,13 +214,13 @@ export class EchoBot extends TeamsActivityHandler {
                     console.info(deeplink);
                     const card = CardFactory.heroCard(
                         'Coming Soon',
+                        'Chat support for this functionality is not availabl yet , click the button to navigate to our custom Tab',
                         ['https://img.freepik.com/free-vector/coming-soon-message-illuminated-with-light-projector_1284-3622.jpg?size=338&ext=jpg'],
                         [
                             {
                                 title: 'Xbox Live',
                                 type: ActionTypes.OpenUrl,
-                                value: deeplink,
-                                text: 'Chat support for this functionality is not availabl yet , click the button to navigate to our custom Tab'
+                                value: deeplink
                             }
                         ],
                     )
@@ -198,86 +274,13 @@ export class EchoBot extends TeamsActivityHandler {
                     await context.sendActivity({ attachments: [card] });
                 }
             }
+        }
             else {
-                console.log(context.activity.type)
             }
         });
+
+
+
     }
 
-
-    // public getScreenshots(token: AuthToken) {
-    //     console.info("getScreenshots");
-    //     if (token != null || typeof (token) != "undefined") {
-    //       const postData = querystring.stringify({
-    //         xuid: token.userXUID,
-    //         uhash: token.userHash,
-    //         token: token.XSTSToken
-    //       });
-    //       const options = {
-    //         path: "https://xboxliveauthenticatorservice.azurewebsites.net/screenshots",
-    //         method: "POST",
-    //         headers: {
-    //           "Content-Type": "application/x-www-form-urlencoded",
-    //           "Content-Length": postData.length
-    //         }
-    //       };
-    //       var context = this;
-    //       const req = https.request(options, (res) => {
-    //         console.log("statusCode:", res.statusCode);
-    //         console.log("headers:", res.headers);
-    //         res.on("data", (d) => {
-    //           try {
-    //               console.info(d)
-    //             var string = new TextDecoder("utf-8").decode(d);
-    //             const screeshots = JSON.parse(d);
-    //             console.info(screeshots)
-    //           }
-    //           catch
-    //           {
-    //             window.location.reload(false);
-    //           }
-    //         });
-    //       });
-    //       req.on("error", (e) => {
-    //         console.info("error");
-    //         console.info(e);
-    //       });
-    //       req.write(postData);
-    //       req.end();
-    //     }
-    //   }
-
-    // public getAchievements(token: AuthToken) {
-    //     if (token != null || typeof (token) != "undefined") {
-    //         const options = {
-    //         // hostname:"cors-anywhere.herokuapp.com/https://achievements.xboxlive.com/",
-    //           path: `https://cors-anywhere.herokuapp.com/https://achievements.xboxlive.com//users/xuid(${token.userXUID})/achievements?unlockedOnly=true&orderBy=UnlockTime`,
-    //           method: "GET",
-    //         //   port: 443,
-    //           headers: {
-    //             "Content-Type": "application/x-www-form-urlencoded",
-    //             'x-xbl-contract-version': '2', 
-    //             'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`
-    //           }
-    //         };
-    //         const req = https.request(options, (res) => {
-    //             console.info("statusCode: ", res.statusCode);
-    //             console.info("headers: ", res.headers);
-    //           res.on("data", (d) => {
-    //             try {
-    //                 console.info(d)
-    //             }
-    //             catch (ex) {
-    //               console.info(ex)
-    //               // window.location.reload(false);
-    //             }   
-    //           });
-    //         });
-    //         req.on("error", (e) => {
-    //           console.info(e);
-    //         });
-    //         req.end();
-    //       }
-
-    // }
 }

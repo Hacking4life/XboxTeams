@@ -58,12 +58,9 @@ export class gamerTag extends TeamsBaseComponent<IGamerTagProps, IGamerTagstate>
       };
       var context = this;
       const req = https.request(options, (res) => {
-        console.log("statusCode:", res.statusCode);
-        console.log("headers:", res.headers);
         res.on("data", (d) => {
           try {
             const clips: any = JSON.parse(d);
-            console.log(clips);
             context.setState({
               gameClips: clips.gameClips
             })
@@ -106,20 +103,6 @@ export class gamerTag extends TeamsBaseComponent<IGamerTagProps, IGamerTagstate>
   }
 
   public componentDidMount() {
-    // var authService = new AuthenticationService();
-    // var token: AuthToken = authService.GetTokenFromFile();
-    // var context = this;
-    // var newgt: string = "L Lewliet564";
-    // this.test(token, newgt);
-    // axios.all([this.reserverGamerTag(token,newgt)]).then(axios.spread(function (acct) {
-    // if(acct.status==200)
-    // {
-    //   axios.all([context.changeGamerTag(token,newgt)]).then(axios.spread(function (final) {
-    //     console.log(final);
-    //   }))
-    // }
-    // }))
-
   }
 
   public render() {

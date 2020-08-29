@@ -21,8 +21,6 @@ export class AuthBot extends DialogBot {
         });
 
         this.onTokenResponseEvent(async (context, next) => {
-            console.log('Running dialog with Token Response Event Activity.');
-
             // Run the Dialog with the new Token Response Event Activity.
             await this.dialog.run(context, this.dialogState);
 

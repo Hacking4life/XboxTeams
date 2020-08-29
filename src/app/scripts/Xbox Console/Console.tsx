@@ -97,7 +97,6 @@ export class SmartGlass extends TeamsBaseComponent<ISmartGlassProps, ISmartGlass
       }
     };
     const req = https.request(options, (res) => {
-      console.log("Buttonn send success");
     });
     req.on("error", (e) => {
       console.error(e);

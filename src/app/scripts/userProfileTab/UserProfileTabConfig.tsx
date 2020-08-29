@@ -76,7 +76,6 @@ export class UserProfileTabConfig extends TeamsBaseComponent<IUserProfileTabConf
                 break;
 
         }
-        console.log(ev)
     }
     public render() {
         const items = [

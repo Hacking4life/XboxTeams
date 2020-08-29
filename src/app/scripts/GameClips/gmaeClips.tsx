@@ -7,6 +7,7 @@ import * as https from "https";
 import * as querystring from "querystring";
 import "../../web/styles/loader.css";
 const queryString = require('query-string');
+import {Share} from "../ShareButton/Share"
 
 export interface IGameClipstate extends ITeamsBaseComponentState {
   gameClips: Array<any>
@@ -42,7 +43,6 @@ export class gameClips extends TeamsBaseComponent<IGameClipProps, IGameClipstate
       const req = https.request(options, (res) => {
         res.on("data", (d) => {
           try {
-            console.log(d.toString('utf8'));
             const clips: any = JSON.parse(d.toString('utf8'));
             // const clips: any = d;
             context.setState({
@@ -52,7 +52,6 @@ export class gameClips extends TeamsBaseComponent<IGameClipProps, IGameClipstate
           }
           catch (ex) {
             console.log(ex)
-            // window.location.reload(false);
           }
 
 
@@ -140,6 +139,7 @@ export class gameClips extends TeamsBaseComponent<IGameClipProps, IGameClipstate
                 </div>
               </div>
             </div>
+            <Share invoke={{type:'clip',url:this.state.gameClips[0].gameClipUris[0].uri}}></Share>
           </div>
         </section>
       )

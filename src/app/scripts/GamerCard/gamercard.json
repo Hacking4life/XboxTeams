@@ -1,0 +1,75 @@
+{
+    "type": "AdaptiveCard",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "Image",
+                            "style": "Person",
+                            "url": "${creator.profileImage}",
+                            "size": "Small"
+                        }
+                    ],
+                    "width": "auto"
+                },
+                {
+                    "type": "Column",
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "weight": "Bolder",
+                            "text": "${creator.name}",
+                            "wrap": true,
+                            "height": "stretch",
+                            "fontType": "Monospace",
+                            "size": "Medium",
+                            "color": "Accent",
+                            "isSubtle": true
+                        }
+                    ],
+                    "width": "stretch"
+                }
+            ]
+        },
+        {
+            "type": "TextBlock",
+            "text": "${description}",
+            "wrap": true
+        },
+        {
+            "type": "FactSet",
+            "facts": [
+                {
+                    "title": "Gamer Tag :",
+                    "value": "dasdasdasda"
+                },
+                {
+                    "title": "Games Played : "
+                }
+            ],
+            "isVisible": false,
+            "height": "stretch",
+            "separator": true
+        },
+        {
+            "type": "ActionSet",
+            "actions": [
+                {
+                    "type": "Action.Submit",
+                    "title": "Send Kudos"
+                },
+                {
+                    "type": "Action.Submit",
+                    "title": "Follow"
+                }
+            ],
+            "horizontalAlignment": "Center"
+        }
+    ],
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "version": "1.3"
+}

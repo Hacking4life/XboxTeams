@@ -8,7 +8,8 @@ import * as https from "https";
 import * as querystring from "querystring";
 import "../../web/styles/loader.css";
 const queryString = require('query-string');
-// import{Loader} from "../Loader/loader";
+import {Share} from "../ShareButton/Share";
+
 
 export interface IScreenshotState extends ITeamsBaseComponentState {
   Screenshots: Array<any>
@@ -42,8 +43,6 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
       };
       var context = this;
       const req = https.request(options, (res) => {
-        console.log("statusCode:", res.statusCode);
-        console.log("headers:", res.headers);
         res.on("data", (d) => {
           try {
             var string = new TextDecoder("utf-8").decode(d);
@@ -80,12 +79,6 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
 
   }
 
-  public share() {
-    var screenshotinfo = {
-      url: "https://steamcdn-a.akamaihd.net/steam/apps/1174180/header.jpg?t=1583253547"
-    }
-    microsoftTeams.tasks.submitTask(screenshotinfo, "52531e3f-19dc-4514-ba3a-44646eafa52c")
-  }
 
   public activeItem() {
     if (this.state.Screenshots.length != 0) {
@@ -98,7 +91,6 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
   public render() {
     if(this.state.dataloaded)
     {
-    console.log("render called");
     return (
       <div className="container">
         <div id="main_area">
@@ -135,7 +127,7 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
                         <p className="sub-text"><strong>Views: </strong>{this.state.Screenshots[index].views}</p>
                         <p className="sub-text"><strong>Date Taken: </strong>{this.state.Screenshots[index].dateTaken}</p>
                         <p className="sub-text">Click here to <a href={this.state.Screenshots[index].screenshotUris[0].uri}> Download</a></p>
-
+                    
                       </div>);
                   })}
                 </div>
@@ -156,6 +148,7 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
             </div>
           </div>
         </div>
+        <Share invoke={{type:'screenshots'}}></Share>
       </div>
     )
               }

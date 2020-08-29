@@ -7,6 +7,7 @@ const axios = require('axios');
 var $ = require("jquery");
 import 'bootstrap';
 import "../../web/styles/loader.css"
+import {Share} from "../ShareButton/Share"
 const queryString = require('query-string');
 
 export interface IAchievementState extends ITeamsBaseComponentState {
@@ -92,6 +93,7 @@ export class achievements extends TeamsBaseComponent<IAchievementProps, IAchieve
               </div>
             </div>
           </div>
+          <Share invoke={{type:'achv'}}></Share>
         </div>
       )
     }

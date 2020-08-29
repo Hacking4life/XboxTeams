@@ -94,7 +94,6 @@ export class Modal extends React.Component<{}, IConnectState> {
         catch {
           result = new TextDecoder("utf-8").decode(d);
         }
-        console.log(result);
         if (result != "NO") {
           this.setState({
             modalOpened: true,

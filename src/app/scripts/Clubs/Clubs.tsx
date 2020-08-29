@@ -28,14 +28,11 @@ export class ClubS extends React.Component<{}, MyState> {
 
   componentWillMount() {
     var context = this;
-    console.log("yes");
     microsoftTeams.initialize();
 
     microsoftTeams.getContext(function (teamsctx) {
-      console.log(teamsctx);
       context.setState({ teamID: teamsctx.groupId, tenantId: teamsctx.tid, currentUser: teamsctx.userPrincipalName })
       axios.all([context.createClub(context)]).then(axios.spread(function (acct) {
-        console.log(acct);
       }));
     });
 
@@ -43,56 +40,7 @@ export class ClubS extends React.Component<{}, MyState> {
   }
 
   public createClub(context) {
-    // return  axios({
-    //     method: 'post',
-    //     baseURL: 'https://login.microsoftonline.com/',   /// will be removed once ajits node package is available
-    //     url: `${context.state.tenantId}/oauth2/v2.0/token/client_id=19dd7860-b66e-43f4-a71a-81c0dd23a8bd
-    //     &scope=https%3A%2F%2Fgraph.microsoft.com%2F.default
-    //     &client_secret=iafQjr2Y~6Km~Qzf6al.2kfpn__1o5TK_1
-    //     &grant_type=client_credentials`,
-    //     headers: {
-    //         'Content-Type': 'application/x-www-form-urlencoded',
-    //     }
-    // })
-
   }
-
-
-
-
-
-
-  //     const msalConfig = {
-  //       auth: {
-  //           clientId: "19dd7860-b66e-43f4-a71a-81c0dd23a8bd", // Client Id of the registered application
-  //           redirectUri: "https://8dd654fbe7ad.ngrok.io/userprofiletab/",
-  //       },
-  //   };
-  //   const graphScopes = ["Group.ReadWrite.All", "mail.send"]; // An array of graph scopes
-
-
-
-  //   // Important Note: This library implements loginPopup and acquireTokenPopup flow, remember this while initializing the msal
-  //   // Initialize the MSAL @see https://github.com/AzureAD/microsoft-authentication-library-for-js#1-instantiate-the-useragentapplication
-  //   const msalApplication = new UserAgentApplication(msalConfig);
-  //   const options = new MicrosoftGraph.MSALAuthenticationProviderOptions(graphScopes);
-  //   const authProvider = new ImplicitMSALAuthenticationProvider(msalApplication, options);
-  //   const option = {
-  //     authProvider, 
-  // };
-  // const client = Client.initWithMiddleware(option);
-  // const channel = {
-  //   displayName: "Architecture Discussion",
-  //   description: "This channel is where we debate all future architecture plans"
-  // };
-  // try {
-  //   let userDetails = await client.api(`/teams/${this.state.teamID}/channels`).post(channel)
-  //   console.log(userDetails);
-  // } catch (error) {
-  //   console.log(error)
-  // }
-
-
   render() {
 
     return (
@@ -127,24 +75,6 @@ export class ClubS extends React.Component<{}, MyState> {
         </div>
         <h2><strong>Game clubs<span></span></strong></h2> <div style={{ alignContent: 'center' }}
         ><h2 className="btn btn-default btn-rounded mb-4" style={{ fontSize: 'inherit' }} data-toggle="modal" data-target="#modalLoginForm">Create Your personal Club</h2></div>
-        {/* <div className="cards">
-                <figure className="card">
-                  <img src="https://media.playstation.com/is/image/SCEA/red-dead-redemption-2-rdo-key-art-desktop-02-ps4-us-14may19?$native_nt$" />
-                  <figcaption>Read Dead Redemptio 2</figcaption>
-                </figure>
-                <figure className="card">
-                  <img src="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Finsertcoin%2Ffiles%2F2015%2F06%2Farkham-knight3.jpg" />
-                  <figcaption>Batman Arkham Knight</figcaption>
-                </figure>
-                <figure className="card">
-                  <img src="https://seeklogo.com/images/F/fortnite-logo-4D53F6E8F3-seeklogo.com.png" />
-                  <figcaption>FortNite</figcaption>
-                </figure>
-                <figure className="card">
-                  <img src="https://lh3.googleusercontent.com/yAtZnNL-9Eb5VYSsCaOC7KAsOVIJcY8mpKa0MoF-0HCL6b0OrFcBizURHywpuip-D6Y" />
-                  <figcaption>MineCraft</figcaption>
-                </figure>
-              </div> */}
         <div>
           {/* Hello world */}
           <section className="shelf">

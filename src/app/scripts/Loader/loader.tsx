@@ -5,7 +5,7 @@ import "bootstrap"
 
 export class Loader extends React.Component {
    render()
-   { debugger;
+   { 
        return(
     <div className="smart-glass">
     <h1>Xbox</h1>

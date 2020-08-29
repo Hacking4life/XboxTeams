@@ -7,7 +7,7 @@ import * as debug from "debug";
 import * as compression from "compression";
 import { adapter, EchoBot } from './bot';
 import { ActivityTypes } from 'botbuilder';
-
+import {ShareActivity} from "../app/ShareActivity"
 
 const log = debug("msteams");
 
@@ -77,10 +77,23 @@ http.createServer(express).listen(port, () => {
 const bot = new EchoBot();
 express.post('/api/messages', (req, res) => { 
     adapter.processActivity(req, res, async (context) => {
+        if(context.activity.type==ActivityTypes.Invoke)
+        {
+            const share = new ShareActivity();
+            console.info(context.activity.value)
+            const scard =share.getshareadaptivecard(context.activity.value)
+            await context.sendActivity({ attachments: [scard] });
+            
+        }
+        else
+        {
+            
         await bot.run(context);
+        }
 });
 })
 
 
 
 
+// ngrok http 3007 -host-header=localhost:3007

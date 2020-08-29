@@ -7,7 +7,9 @@ const axios = require('axios');
 import '../../web/styles/gamercard.css';
 var $ = require("jquery");
 import 'bootstrap';
+import { shareDeepLink } from "@microsoft/teams-js";
 const queryString = require('query-string');
+import {Share} from "../ShareButton/Share"
 
 // https://codepen.io/edlin/pen/AXzbXw
 /**
@@ -36,9 +38,8 @@ export interface GamercardProp {
 }
 export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardState> {
 
+
   public componentDidUpdate() {
-
-
     $(function () {
       $('.js-header-toggle').click(function (e) {
         e.preventDefault;
@@ -96,18 +97,15 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
     this.setState({ titles: [], dataloaded: false });
 
     const token: AuthToken = queryString.parse(location.search);
-    console.log(token);
     var authService = new AuthenticationService();
     // var token: AuthToken = authService.GetTokenFromFile();
     // let token: AuthToken = await authService.getUserToken("arunjb2016@gmail.com", "Clannad@01");
     var context = this;
     axios.all([this.getUserProfile(token), this.gettitles(token)]).then(axios.spread(function (acct, ttls) {
-      console.log(acct);
       context.setState(
         {
           GamerTag: acct.data.profileUsers[0].settings[7].value,
           Gamerpic: acct.data.profileUsers[0].settings[4].value,
-          // Gamerpic: String(acct.data.profileUsers[0].settings[4].value).toLocaleLowerCase().indexOf('http') > 0?acct.data.profileUsers[0].settings[4].value:"https://cdn.dribbble.com/users/924650/screenshots/6606195/robohobo_detailed.png",
           Name: acct.data.profileUsers[0].settings[15].value,
           Location: acct.data.profileUsers[0].settings[12].value,
           Gamerscore: acct.data.profileUsers[0].settings[6].value,
@@ -133,10 +131,9 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
 
     }
   }
-
   public render() {
     if (this.state.dataloaded) {
-      return (
+      return (     
         <div>
           <div id="container">
             <span id="profile">
@@ -177,7 +174,6 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
                   })}
                 </div>
                 <div id="profile-bio">
-                  {/* <img className="avatar-body" src={this.state.Gamerpic} /> */}
                   <div className="avatar-location-heading">Location</div>
                   <div className="avatar-location">{this.state.Location}</div>
                   <div className="avatar-motto-heading">Account Tier</div>
@@ -187,15 +183,14 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
                   <div className="avatar-tenure">10</div>
                 </div>
               </span>
+            <Share invoke={{type:'gc',img:this.state.Gamerpic,gt:this.state.GamerTag}}></Share>
             </span>
           </div>
         </div>
-
       );
     }
     else if (!this.state.dataloaded) {
       return (
-
         <div className="smart-glass">
           <h1>Xbox</h1>
           <div className="logo">

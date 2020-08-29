@@ -26,12 +26,14 @@ export default class Tab extends React.Component<{username:string,password:strin
       taskInfo.title = "Xbox Live Profile";
       taskInfo.height = "530";
       taskInfo.width = "1000";
+      taskInfo.completionBotId = "d7777f39-1e8f-46e8-8aaf-227fcfa4429c";
     }
     else if (type.includes('acheivements')) {
       taskInfo.url = host + `/userprofiletab/Achievements.html?userHash=${this.props.token.userHash}&userXUID=${this.props.token.userXUID}&XSTSToken=${this.props.token.XSTSToken}`;
       taskInfo.title = "Recent Acheivements";
       taskInfo.height = "530";
       taskInfo.width = "1000";
+      taskInfo.completionBotId = "d7777f39-1e8f-46e8-8aaf-227fcfa4429c";
     }
     else if (type.includes('family')) {
       taskInfo.url = host + `/userprofiletab/Family.html?userHash=${this.props.token.userHash}&userXUID=${this.props.token.userXUID}&XSTSToken=${this.props.token.XSTSToken}`;
@@ -44,28 +46,30 @@ export default class Tab extends React.Component<{username:string,password:strin
       taskInfo.title = "Screenshots";
       taskInfo.height = "600";
       taskInfo.width = "1400";
+      taskInfo.completionBotId = "d7777f39-1e8f-46e8-8aaf-227fcfa4429c";
     }
     else if (type.includes('video')) {
       taskInfo.url = host + `/userprofiletab/gameclips.html?userHash=${this.props.token.userHash}&userXUID=${this.props.token.userXUID}&XSTSToken=${this.props.token.XSTSToken}`;
       taskInfo.title = "Recent Game Clips";
       taskInfo.height = "800";
       taskInfo.width = "2000";
+      taskInfo.completionBotId = "d7777f39-1e8f-46e8-8aaf-227fcfa4429c";
     }
     else if (type.includes('gt')) {
       taskInfo.url = host + "/userprofiletab/gamertag.html";
       taskInfo.title = "Recent Game Clips";
       taskInfo.height = "530";
       taskInfo.width = "1000";
+      taskInfo.completionBotId = "d7777f39-1e8f-46e8-8aaf-227fcfa4429c";
     }
     taskInfo.fallbackUrl = taskInfo.url;
 
     if (type.includes('bot'))
-      taskInfo.completionBotId = "52531e3f-19dc-4514-ba3a-44646eafa52c";
+      taskInfo.completionBotId = "d7777f39-1e8f-46e8-8aaf-227fcfa4429c";
     microsoftTeams.tasks.startTask(taskInfo, this.submitHandler);
   }
 
   public submitHandler = (err, result) => {
-    console.log(`Submit handler - err: ${err}`);
   };
 
 

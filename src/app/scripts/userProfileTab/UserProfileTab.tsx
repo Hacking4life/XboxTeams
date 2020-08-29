@@ -63,14 +63,12 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
     private login(result: any) {
         var modal: any = document.getElementById("myModal");
         modal.style.display = "none";
-        console.log(result)
         var username;
         var password;
         if (result != null) {
             username = result.username;
             password = result.password;
             this.authService.getUserToken(username, password).then((token) => {
-                console.log(token);
                 if (token != null) {
                     if (token.name == "XboxReplayError") {
                         this.setState({ isUserAuthenticated: false, loginattemptFailed: true, tokenexpied: false })
@@ -88,7 +86,6 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                 }
             }, (err) => {
                 this.setState({ isUserAuthenticated: false, loginattemptFailed: true, tokenexpied: false })
-                console.log(err);
             });
         };
     }
@@ -110,7 +107,6 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
         };
 
         const submitHandler = (err: string, result: any): void => {
-            console.log(result)
             var username;
             var password;
             // if(result.username==""||result.password==""){
@@ -124,7 +120,6 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                     password = result.password;
                 }
                 this.authService.getUserToken(username, password).then((token) => {
-                    console.log(token);
                     if (token != null) {
                         if (token.name == "XboxReplayError") {
                             this.setState({ isUserAuthenticated: false, loginattemptFailed: true, tokenexpied: false })
@@ -194,8 +189,6 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                             <button style={{ margin: 'auto', display: 'block' }} className="button" onClick={() => {
                                 var username = $("#un").val();
                                 var password = $("#psswd").val();
-                                console.log(username);
-                                console.log(password);
                                 var res = {
                                     username: username,
                                     password: password
@@ -251,8 +244,6 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                             <button style={{ margin: 'auto', display: 'block' }} className="button" onClick={() => {
                                 var username = $("#un").val();
                                 var password = $("#psswd").val();
-                                console.log(username);
-                                console.log(password);
                                 var res = {
                                     username: username,
                                     password: password

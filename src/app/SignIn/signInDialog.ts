@@ -41,7 +41,6 @@ export class MainDialog extends LogoutDialog {
      * @param {*} accessor
      */
     async run(turnContext, accessor) {
-        console.log('Came to sign in dialog');
         const dialogSet = new DialogSet(accessor);
         dialogSet.add(this);
 
@@ -54,18 +53,15 @@ export class MainDialog extends LogoutDialog {
     }
 
     async promptStep(step) {
-        console.log('Prompt');
         return step.beginDialog(OAUTH_PROMPT);
        
     }
 
     async loginStep(step) {
-        console.log('Login');
         // Get the token from the previous step. Note that we could also have gotten the
         // token directly from the prompt itself. There is an example of this in the next method.
         const tokenResponse = step.result;
         if (tokenResponse) {
-            console.log('You are now logged in.');
             await step.context.sendActivity('You are now logged in.');
             return await step.prompt(TEXT_PROMPT, { prompt: 'Would you like to do? (type \'me\' or \'email\')' });
         }

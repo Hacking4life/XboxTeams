@@ -1,0 +1,72 @@
+{
+    "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+    "type": "AdaptiveCard",
+    "version": "1.3",
+    "body": [
+        {
+            "type": "ColumnSet",
+            "columns": [
+                {
+                    "type": "Column",
+                    "width": 2,
+                    "items": [
+                        {
+                            "type": "TextBlock",
+                            "text": "Event Created"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "${Description}",
+                            "weight": "Bolder",
+                            "size": "ExtraLarge",
+                            "spacing": "None"
+                        },
+                        {
+                            "type": "TextBlock",
+                            "text": "An event has been created at {Date}  :  {Time}. \n",
+                            "size": "Small",
+                            "wrap": true,
+                            "maxLines": 3
+                        },
+                        {
+                            "type": "FactSet",
+                            "facts": [
+                                {
+                                    "title": "Pool ID :",
+                                    "value": "{PoolId}"
+                                },
+                                {
+                                    "title": "Minimum Number of players required :",
+                                    "value": "{NOP}"
+                                },
+                                {
+                                    "title": "Game :",
+                                    "value": "{Title}"
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "Column",
+                    "width": 1,
+                    "items": [
+                        {
+                            "type": "Image",
+                            "url": "https://opengameart.org/sites/default/files/controllerCover.png",
+                            "size": "auto"
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "actions": [
+        {
+            "type": "Action.OpenUrl",
+            "title": "Request to join",
+            "url": "${url}",
+            "style": "destructive"
+        }
+    ]
+}
