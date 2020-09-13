@@ -7,12 +7,17 @@ const axios = require('axios');
 var $ = require("jquery");
 import 'bootstrap';
 import "../../web/styles/loader.css"
-import {Share} from "../ShareButton/Share"
+import {Share} from "../ShareButton/Share";
+import { Provider, themes} from "@fluentui/react-northstar";
+import {ErrorMessage} from "../ErrorMessage/error";
+import * as https from "https";
+import * as querystring from "querystring";
 const queryString = require('query-string');
 
 export interface IAchievementState extends ITeamsBaseComponentState {
   Achievements: Array<any>
-  dataloaded: boolean
+  dataloaded: boolean,
+  restApiError:boolean
 }
 
 export interface IAchievementProps {
@@ -23,32 +28,79 @@ export interface AchievementProp {
 }
 
 export class achievements extends TeamsBaseComponent<IAchievementProps, IAchievementState> {
+  constructor(props)
+  {
+    super(props);
+    this.getAchievements.bind(this);
+  }
 
   public getAchievements(token: AuthToken) {
-    return axios({
-      method: 'get',
-      baseURL: 'https://cors-anywhere.herokuapp.com/https://achievements.xboxlive.com/',   /// will be removed once ajits node package is available
-      url: `/users/xuid(${token.userXUID})/achievements?unlockedOnly=true&orderBy=UnlockTime`,
+    const postData = querystring.stringify({
+      xuid: token.userXUID,
+      uhash: token.userHash,
+      token: token.XSTSToken
+    });
+    const options = {
+      path: "https://xboxliveauthenticatorservice.azurewebsites.net/achievements",
+      method: "POST",
       headers: {
-        'x-xbl-contract-version': '2', 'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`,
-        timeout: 1000
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length
       }
-    })
+    };
+    let achv_json=""; 
+    let ctx=this;
+    const req = https.request(options, (res) => {
+      res.setEncoding('utf8');
+      res.on("data" , function (chunk) {
+        achv_json += chunk;
+      });
+      res.on("end",  function () {
+        try {
+          const achv: any = JSON.parse(achv_json.toString());
+          ctx.setState({
+        Achievements: achv.achievements,
+        dataloaded: true,
+        restApiError:false
+      });
+        }
+        catch (ex) {
+          console.log(ex);
+          ctx.setState({
+            restApiError: true,
+            dataloaded: false
+          });
+        }
+      });
+    });
+    req.on("error", (e) => {
+      console.error(e);
+      ctx.setState({
+        restApiError: true,
+        dataloaded: false
+      });
+    });
+    req.write(postData);
+    req.end();
   }
 
   public async componentWillMount() {
-    this.setState({ Achievements: [], dataloaded: false });
+    this.setState({ Achievements: [], dataloaded: false, restApiError:false });
     const token: AuthToken = queryString.parse(location.search);
-    // var authService = new AuthenticationService();
-    // let token: AuthToken = await authService.getUserToken("arunjb2016@gmail.com", "Clannad@01");
-    var context = this;
-    axios.all([this.getAchievements(token)]).then(axios.spread(function (achv) {
-
-      context.setState({
-        Achievements: achv.data.achievements,
-        dataloaded: true
-      })
-    }))
+    this.getAchievements(token);
+    // var context = this;
+    // axios.all([this.getAchievements(token)]).then(axios.spread(function (achv) {
+    //   context.setState({
+    //     Achievements: achv.data.achievements,
+    //     dataloaded: true,
+    //     restApiError:false
+    //   })
+    // })).catch((err) => {
+    //   context.setState({
+    //     dataloaded: false,
+    //     restApiError:true
+    //   })
+    // });
   }
 
   public activeItem() {
@@ -65,7 +117,7 @@ export class achievements extends TeamsBaseComponent<IAchievementProps, IAchieve
     }
   }
   public render() {
-    if (this.state.dataloaded) {
+    if (this.state.dataloaded && !this.state.restApiError) {
       return (
         <div className="container">
           <h1 style={{ textAlign: 'center' }}>Recent Acheivements</h1><br /><br />
@@ -96,7 +148,15 @@ export class achievements extends TeamsBaseComponent<IAchievementProps, IAchieve
           <Share invoke={{type:'achv'}}></Share>
         </div>
       )
+    }   else if (this.state.restApiError)
+    {
+      return(
+      <Provider theme={themes.teams} styles={{ backgroundColor: "azure" }} > 
+<ErrorMessage/>
+    </Provider>
+      )
     }
+
     else if (!this.state.dataloaded) {
       return (
 

@@ -10,37 +10,6 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" id="bootstrap-css">  <script src='https://statics.teams.cdn.office.net/sdk/v1.6.0/js/MicrosoftTeams.min.js'></script>
 
-<script>
-  $( document ).ready(function() 
-      {
-  setTimeout(function(){ 
-
-$( ".play-button-wrapper" ).bind("click touchstart", function() {
-
-//Find the active carousel slide and target the Iframe within it
-$("#video-carousel").find('.active iframe').each(function(){
-    
-    //Find the integer from the div ID and split - Use objectID[1] to output the integer
-    var objectID = $(this).attr('id').split('-');
-
-    
-    //If the active slide's video is Playing
-    if (videoArray[ objectID[1] ].getPlayerState() == 1) {
-        videoArray[ objectID[1] ].pauseVideo();     //Pause video on click
-
-    //If the active slide's video is Paused
-    } else if (videoArray[ objectID[1] ].getPlayerState() == 2) {
-        videoArray[ objectID[1] ].playVideo();      //Play video on click
-
-    //If the video is doing anything else
-    } else {
-        videoArray[ objectID[1] ].playVideo();      //Play video on click
-    }
-
-});
-}); }, 7000);
-});
-</script>
     <style>  
   .frame{
       top: 10px;
@@ -207,9 +176,7 @@ $("#video-carousel").find('.active iframe').each(function(){
   <script>
     microsoftTeams.initialize();
 </script>
-  <div id='app' style="
-  padding-top: 25px;
-">
+  <div id='app'>
   </div>
   <!-- inject:js -->
   <!-- endinject -->

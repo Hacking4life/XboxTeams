@@ -10,14 +10,14 @@ const axios = require('axios');
 import "../../web/styles/friends.css"
 import * as https from "https";
 import * as querystring from "querystring";
+import { Provider, themes} from "@fluentui/react-northstar";
+import {ErrorMessage} from "../ErrorMessage/error";
 
 
 export interface IfriendsState extends ITeamsBaseComponentState {
   friendsUsers: Array<any>
   dataloaded: boolean
-  Gamerscore: string;
-  GamerTag: string;
-  Gamerpic: string;
+  restApiError:boolean
 }
 
 export interface IfriendsProps {
@@ -27,26 +27,65 @@ export interface IfriendsProps {
 export interface friendscardProp {
 }
 export class Friends extends TeamsBaseComponent<IfriendsProps, IfriendsState> {
-
+constructor(props)
+{
+  super(props);
+  this.getMembers.bind(this);
+  this.getfriendata.bind(this);
+}
 
   getfriendata(token: AuthToken, xuid: any) {
-    return axios({
-      method: 'post',
-      baseURL: 'https://cors-anywhere.herokuapp.com/https://profile.xboxlive.com/',   /// will be removed once ajits node package is available
-      url: '/users/batch/profile/settings',
-      data: {
-        userIds: xuid,
-        settings: ['GameDisplayName', 'AppDisplayName', 'AppDisplayPicRaw', 'GameDisplayPicRaw', 'PublicGamerpic', 'ShowUserAsAvatar', 'Gamerscore', 'Gamertag', 'AccountTier', 'TenureLevel', 'XboxOneRep', 'PreferredColor', 'Location', 'Bio', 'Watermarks', 'RealName', 'RealNameOverride']
-      },
+    
+    const postData = querystring.stringify({
+      xuid:  xuid,
+      uhash: token.userHash,
+      token: token.XSTSToken
+    });
+    const options = {
+      path: "https://xboxliveauthenticatorservice.azurewebsites.net/Friendsprofile",
+      method: "POST",
       headers: {
-        'x-xbl-contract-version': '2', 'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`,
-        timeout: 1000
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length
       }
-    })
+    };
+    let friendsdata_json=""; 
+    let ctx=this;
+    const req = https.request(options, (res) => {
+      res.setEncoding('utf8');
+      res.on("data" , function (chunk) {
+        friendsdata_json += chunk;
+      });
+      res.on("end",  function () {
+        try {
+          const profiles: any = JSON.parse(friendsdata_json.toString());
+          ctx.setState({
+            dataloaded: true,
+            friendsUsers: profiles.profileUsers,
+            restApiError:false
+          })
+        }
+        catch (ex) {
+          console.log(ex);
+          ctx.setState({
+            restApiError: true,
+            dataloaded: false
+          });
+        } });
+ 
+    });
+    req.on("error", (e) => {
+      console.error(e);
+      ctx.setState({
+        restApiError: true,
+        dataloaded: false
+      });
+    });
+    req.write(postData);
+    req.end();
   }
   public getMembers(token: AuthToken) {
     if (token != null && typeof (token) != "undefined") {
-
       const postData = querystring.stringify({
         xuid: token.userXUID,
         uhash: token.userHash,
@@ -60,49 +99,37 @@ export class Friends extends TeamsBaseComponent<IfriendsProps, IfriendsState> {
           "Content-Length": postData.length
         }
       };
-      var context = this;
+      let friends_json=""; 
+    let ctx=this;
       const req = https.request(options, (res) => {
-        res.on("data", (d) => {
-          try {
-            var string = new TextDecoder("utf-8").decode(d);
-            const data: any = JSON.parse(d);
+        res.setEncoding('utf8');
+        res.on("data" , function (chunk) {
+          friends_json += chunk;
+        });
+        res.on("end",  function () {
+            const data: any = JSON.parse(friends_json.toString());
             var xuids: Array<any> = data.people;
-            var userId: string[] = [];
+            var userIds: string[] = [];
             for (let i = 0; i <= data.totalCount - 1; i++) {
-              userId.push(xuids[i].xuid)
+              userIds.push(xuids[i].xuid)
             }
-            var context2 = context;
-            axios.all([context.getfriendata(token, userId)]).then(axios.spread(function (acct) {
-              context2.setState({
-                dataloaded: true,
-                friendsUsers: acct.data.profileUsers,
-                Gamerscore: acct.data.profileUsers[0].settings[6].value,
-                GamerTag: acct.data.profileUsers[0].settings[7].value,
-                Gamerpic: acct.data.profileUsers[0].settings[4].value
-              })
-
-            }))
-
-          }
-          catch
-          {
-            window.location.reload(false);
-          }
-
-
+            ctx.getfriendata(token,userIds);
         });
       });
       req.on("error", (e) => {
         console.error(e);
+        ctx.setState({
+          dataloaded: false,
+          restApiError:true
+        })
       });
       req.write(postData);
       req.end();
-
     }
   }
 
   public async componentWillMount() {
-    this.setState({ friendsUsers: [], dataloaded: false })
+    this.setState({ friendsUsers: [], dataloaded: false,restApiError:false })
     var authService = new AuthenticationService();
     // var token: AuthToken = authService.GetTokenFromFile();
     let token: AuthToken = await authService.getUserToken(this.props.username, this.props.password);
@@ -110,13 +137,10 @@ export class Friends extends TeamsBaseComponent<IfriendsProps, IfriendsState> {
   }
 
   public render() {
-    if (this.state.dataloaded) {
+    if (this.state.dataloaded && !this.state.restApiError) {
       let test: Array<any> = ["a", "a", "a", "a", "a", "a"]
       return (
-
-
         <div>
-
           <div className="container mt-5">
             <div className="row" id="data-panel">
               {this.state.friendsUsers.map((value, index) => {
@@ -158,6 +182,13 @@ export class Friends extends TeamsBaseComponent<IfriendsProps, IfriendsState> {
             </div>
           </div>
         </div>
+      )
+    } else if (this.state.restApiError)
+    {
+      return(
+      <Provider theme={themes.teams} styles={{ backgroundColor: "#007b5e" }} > 
+<ErrorMessage/>
+    </Provider>
       )
     }
     else if (!this.state.dataloaded) {

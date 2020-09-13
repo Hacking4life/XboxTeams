@@ -9,11 +9,13 @@ import * as querystring from "querystring";
 import "../../web/styles/loader.css";
 const queryString = require('query-string');
 import {Share} from "../ShareButton/Share";
-
+import { Provider, themes} from "@fluentui/react-northstar";
+import {ErrorMessage} from "../ErrorMessage/error";
 
 export interface IScreenshotState extends ITeamsBaseComponentState {
   Screenshots: Array<any>
-  dataloaded:boolean
+  dataloaded:boolean,
+  restApiError:boolean
 }
 
 export interface IScreenshotProps {
@@ -41,42 +43,50 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
           "Content-Length": postData.length
         }
       };
-      var context = this;
+      let screenshots_json=""; 
+    let ctx=this;
       const req = https.request(options, (res) => {
-        res.on("data", (d) => {
+        res.setEncoding('utf8');
+        res.on("data" , function (chunk) {
+          screenshots_json += chunk;
+        });
+        res.on("end",  function () {
           try {
-            var string = new TextDecoder("utf-8").decode(d);
-            const screeshots = JSON.parse(d);
-            context.setState({
+            const screeshots = JSON.parse(screenshots_json.toString());
+            ctx.setState({
               Screenshots: screeshots.screenshots,
-              dataloaded:true
+              dataloaded:true,
+              restApiError:false
             })
           }
           catch
           {
-            window.location.reload(false);
+            ctx.setState({
+              dataloaded: false,
+              restApiError:true
+            })
           }
         });
       });
       req.on("error", (e) => {
         console.error(e);
+        ctx.setState({
+          dataloaded: false,
+          restApiError:true
+        });
       });
       req.write(postData);
       req.end();
     }
   }
   public componentWillMount() {
-    this.setState({ Screenshots: [] ,dataloaded:false});
+    this.setState({ Screenshots: [] ,dataloaded:false, restApiError:false});
 
   }
   public async componentDidMount() {
-    // var authService = new AuthenticationService();
-    // let token: AuthToken = await authService.getUserToken("arunjb2016@gmail.com", "Clannad@01");
     const token : AuthToken= queryString.parse(location.search);
     var context = this;
     this.getScreenshots(token);
-
-
   }
 
 
@@ -89,9 +99,9 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
     }
   }
   public render() {
-    if(this.state.dataloaded)
+    if (this.state.dataloaded && !this.state.restApiError) 
     {
-    return (
+     return (
       <div className="container">
         <div id="main_area">
           {/* Slider */}
@@ -151,6 +161,13 @@ export class screenshots extends TeamsBaseComponent<IScreenshotProps, IScreensho
         <Share invoke={{type:'screenshots'}}></Share>
       </div>
     )
+              }else if (this.state.restApiError)
+              {
+                return(
+                <Provider theme={themes.teams} styles={{ backgroundColor: "cadetblue" }} > 
+          <ErrorMessage/>
+              </Provider>
+                )
               }
               else if(!this.state.dataloaded)
               {

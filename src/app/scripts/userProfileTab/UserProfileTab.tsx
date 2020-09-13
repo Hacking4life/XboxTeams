@@ -150,14 +150,14 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
             if (this.state.isUserAuthenticated == false && (this.state.tokenexpied || this.state.loginattemptFailed)) {
                 this.onUserLoginAdaptiveCard();
                 return (<body className='welcomebody'>
-                    <div>
+                    <div> 
                         <nav className="layer">
-                            <ul>
-                                <li style={{ color: 'black' }}>Home</li>
+                        <ul>
+                                <li style={{ color: 'black' }}><a  target="_blank" href="https://www.xbox.com/en-IN">Home</a></li>
                                 <li style={{ color: 'black' }} onClick={() => { this.signin() }}>Login</li>
                                 <li style={{ color: 'black' }} onClick={() => { this.onUserLoginAdaptiveCard(); }}>Acces without authentication ( demo mode)</li>
-                                <li style={{ color: 'black' }}>About US</li>
-                                <li style={{ color: 'black' }}>FAQ</li>
+                                <li style={{ color: 'black' }}><a  target="_blank" href="https://garagehackbox.azurewebsites.net/hackathons/2107/projects/89941">About US</a></li>
+                                <li style={{ color: 'black' }}><a  target="_blank" href="https://github.com/Hacking4life">Contribute</a></li>
                             </ul>
                         </nav>
                         <section className="welcomehome page layer">
@@ -207,12 +207,12 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                 return (<body className='welcomebody'>
                     <div>
                         <nav className="layer">
-                            <ul>
-                                <li style={{ color: 'black' }}>Home</li>
+                        <ul>
+                                <li style={{ color: 'black' }}><a  target="_blank" href="https://www.xbox.com/en-IN">Home</a></li>
                                 <li style={{ color: 'black' }} onClick={() => { this.signin() }}>Login</li>
                                 <li style={{ color: 'black' }} onClick={() => { this.onUserLoginAdaptiveCard(); }}>Acces without authentication ( demo mode)</li>
-                                <li style={{ color: 'black' }}>About US</li>
-                                <li style={{ color: 'black' }}>FAQ</li>
+                                <li style={{ color: 'black' }}><a  target="_blank" href="https://garagehackbox.azurewebsites.net/hackathons/2107/projects/89941">About US</a></li>
+                                <li style={{ color: 'black' }}><a  target="_blank" href="https://github.com/Hacking4life">Contribute</a></li>
                             </ul>
                         </nav>
                         <section className="welcomehome page layer">
@@ -238,7 +238,7 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                                 <path opacity="0.3" fill="#333339" d="M0,21.437L0,21.437 M10,7l-9.974,3.625H0v10.812l2.968-1.611v-8.794L10,9.835v12.936L0,21.437  L10,25l4.995-1.483v-0.018V8.545L10,7" />
                             </svg></div>
                             <h1 className="main_heading">Sign In</h1>
-                            <p style={{ color: 'black', textAlign: 'center' }}>Use your Microsoft account.</p><br />
+                            <p style={{ color: 'black', textAlign: 'center' }}>Use your Microsoft account</p><br />
                             <input style={{ margin: 'auto', display: 'block', color: 'black' }} id="un" type="text" className="text_box" placeholder="Ms Live ID" /><br />
                             <input style={{ margin: 'auto', display: 'block', color: 'black' }} id="psswd" type="password" className="text_box" placeholder="Password" /><br />
                             <button style={{ margin: 'auto', display: 'block' }} className="button" onClick={() => {
@@ -250,7 +250,7 @@ export class UserProfileTab extends TeamsBaseComponent<IUserProfileTabProps, IUs
                                 };
                                 this.login(res)
                             }} >Submit</button>
-                            <p style={{ color: 'black', textAlign: 'center' }}>No account? <a style={{ color: 'blue', textAlign: 'center' }}>Create one!</a></p>
+                            <p style={{ color: 'black', textAlign: 'center' }}>No account? <a target="_blank" href="https://signup.live.com/signup?wa=wsignin1.0&rpsnv=13&rver=7.3.6963.0&wp=MBI_SSL&wreply=https:%2f%2faccount.xbox.com%2fen-in%2faccountcreation%3freturnUrl%3dhttps%253a%252f%252fwww.xbox.com%253a443%252fen-IN%252f%26ru%3dhttps%253a%252f%252fwww.xbox.com%252fen-IN%252f%26rtc%3d1%26csrf%3dzt6Xx4IF8MQhTL9aMDyP9JucZ9WMU7CT0U3uepATQkyId7U0_w7C6tJHZf2d7qY3VjJk8itp0hnh8om9c3LYWaejlw01&id=292543&aadredir=1&contextid=AB40229CD2F2E7EC&bk=1599911725&uiflavor=web&lic=1&mkt=EN-IN&lc=16393&uaid=329cb3ebe98d46458dd004edc74e0555" style={{ color: 'blue', textAlign: 'center' }}>Create one!</a></p>
                         </div>
                     </div>
                 </body>

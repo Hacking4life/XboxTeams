@@ -76,7 +76,6 @@ export class SmartGlass extends TeamsBaseComponent<ISmartGlassProps, ISmartGlass
 
 
   componentWillMount() {
-    //this.connect()
   }
 
   public closeModal(): any {

@@ -1,15 +1,16 @@
 import * as React from "react";
-import * as ReactDOM from 'react-dom';
 import TeamsBaseComponent, { ITeamsBaseComponentState } from "msteams-react-base-component";
 import { AuthenticationService } from "../Utilities/AuthenticationService"
 import { AuthToken } from "../Utilities/Model/AuthToken"
-const axios = require('axios');
 import '../../web/styles/gamercard.css';
 var $ = require("jquery");
 import 'bootstrap';
-import { shareDeepLink } from "@microsoft/teams-js";
 const queryString = require('query-string');
-import {Share} from "../ShareButton/Share"
+import { Share } from "../ShareButton/Share"
+import { Provider, themes } from "@fluentui/react-northstar";
+import { ErrorMessage } from "../ErrorMessage/error";
+import * as https from "https";
+import * as querystring from "querystring";
 
 // https://codepen.io/edlin/pen/AXzbXw
 /**
@@ -27,6 +28,7 @@ export interface IGamerCardState extends ITeamsBaseComponentState {
   Gamerpic: string;
   titles: Array<any>[];
   dataloaded: boolean
+  restApiError: boolean
 
 }
 
@@ -38,7 +40,12 @@ export interface GamercardProp {
 }
 export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardState> {
 
+  constructor(props) {
+    super(props);
+    this.gettitles.bind(this);
+    this.getUserProfile.bind(this);
 
+  }
   public componentDidUpdate() {
     $(function () {
       $('.js-header-toggle').click(function (e) {
@@ -48,75 +55,123 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
     });
   }
   public async getUserProfile(token: AuthToken) {
-    return axios({
-      method: 'post',
-      baseURL: 'https://cors-anywhere.herokuapp.com/https://profile.xboxlive.com/',   /// will be removed once ajits node package is available
-      url: '/users/batch/profile/settings',
-      data: {
-        userIds: [`${token.userXUID}`, "2535459213263004"],
-        settings: ['GameDisplayName', 'AppDisplayName', 'AppDisplayPicRaw', 'GameDisplayPicRaw', 'PublicGamerpic', 'ShowUserAsAvatar', 'Gamerscore', 'Gamertag', 'AccountTier', 'TenureLevel', 'XboxOneRep', 'PreferredColor', 'Location', 'Bio', 'Watermarks', 'RealName', 'RealNameOverride']
-      },
+    const postData = querystring.stringify({
+      xuid: token.userXUID,
+      uhash: token.userHash,
+      token: token.XSTSToken
+    });
+    const options = {
+      path: "https://xboxliveauthenticatorservice.azurewebsites.net/profile",
+      method: "POST",
       headers: {
-        'x-xbl-contract-version': '2', 'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`,
-        timeout: 1000
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length
       }
-    })
+    };
+    let profile_json=""; 
+    let ctx=this;
+    const req = https.request(options, (res) => {
+      res.setEncoding('utf8');
+      res.on("data" , function (chunk) {
+        profile_json += chunk;
+      });
+      res.on("end",  function () {
+        try {
+          const profile: any = JSON.parse(profile_json.toString());
+          ctx.gettitles(token, profile);
+        }
+        catch (ex) {
+          console.log(ex);
+          ctx.setState({
+            restApiError: true,
+            dataloaded: false
+          });
+        }
+      });
+    });
+    req.on("error", (e) => {
+      console.error(e);
+      ctx.setState({
+        restApiError: true,
+        dataloaded: false
+      });
+    });
+    req.write(postData);
+    req.end();
+  }
+  public async gettitles(token: AuthToken, data) {
+    const postData = querystring.stringify({
+      xuid: token.userXUID,
+      uhash: token.userHash,
+      token: token.XSTSToken
+    });
+    const options = {
+      path: "https://xboxliveauthenticatorservice.azurewebsites.net/titles",
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Length": postData.length
+      }
+    };
+    let titles_json=""; 
+    let ctx =this;
+    const req = https.request(options, (res) => {
+      res.setEncoding('utf8');
+      res.on("data" , function (chunk) {
+        titles_json += chunk;
+      });
+      res.on("end",  function () {
+        try {
+          const titles_data: any = JSON.parse(titles_json.toString());
+          ctx.setState(
+            {
+              GamerTag: ctx.search("Gamertag", data),
+              Gamerpic: ctx.search("GameDisplayPicRaw", data),
+              Name: ctx.search("RealName", data),
+              Location: ctx.search("Location", data),
+              Gamerscore: ctx.search("Gamerscore", data),
+              Accounttier: ctx.search("AccountTier", data),
+              Reputation: ctx.search("XboxOneRep", data),
+              titles: titles_data.titles,
+              dataloaded: true,
+              restApiError: false
+            }
+          )
+        }
+        catch (ex) {
+          console.log(ex);
+          ctx.setState({
+            restApiError: true
+          });
+        }
+      });
+    });
+    req.on("error", (e) => {
+      console.error(e);
+      ctx.setState({
+        restApiError: true
+      });
+    });
+    req.write(postData);
+    req.end();
 
   }
-  //   public async getUserProfiles(token: AuthToken) {
-  //     return axios({
-  //         method: 'post',
-  //         baseURL: 'https://profile.xboxlive.com/',   /// will be removed once ajits node package is available
-  //         url: '/users/batch/profile/settings',
-  //         data: {
-  //             userIds: [`${token.userXUID}`,"2535459213263004"],
-  //             settings: ['GameDisplayName', 'AppDisplayName', 'AppDisplayPicRaw', 'GameDisplayPicRaw', 'PublicGamerpic', 'ShowUserAsAvatar', 'Gamerscore', 'Gamertag', 'AccountTier', 'TenureLevel', 'XboxOneRep', 'PreferredColor', 'Location', 'Bio', 'Watermarks', 'RealName', 'RealNameOverride']
-  //         },
-  //         headers: {
-  //             'x-xbl-contract-version': '2', 'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`,
-  //             'Access-Control-Allow-Origin':'*',
-  //             timeout: 1000
-  //         }
-  //     })
 
-  // }
-
-  public async gettitles(token: AuthToken) {
-    return axios({
-      method: 'get',
-      baseURL: 'https://cors-anywhere.herokuapp.com/https://achievements.xboxlive.com/',   /// will be removed once ajits node package is available
-      url: `/users/xuid(${token.userXUID})//history/titles`,
-      headers: {
-        'x-xbl-contract-version': '2', 'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`,
-        timeout: 1000
+  public search(key, array: Array<any>): string {
+    for (let i = 0; i <= array.length - 1; i++) {
+      if (array[i].id == key) {
+        return array[i].value;
       }
-    })
+    }
+    return "";
   }
 
   public async componentWillMount() {
-    this.setState({ titles: [], dataloaded: false });
-
+    this.setState({ titles: [], dataloaded: false, restApiError: false });
     const token: AuthToken = queryString.parse(location.search);
     var authService = new AuthenticationService();
-    // var token: AuthToken = authService.GetTokenFromFile();
-    // let token: AuthToken = await authService.getUserToken("arunjb2016@gmail.com", "Clannad@01");
     var context = this;
-    axios.all([this.getUserProfile(token), this.gettitles(token)]).then(axios.spread(function (acct, ttls) {
-      context.setState(
-        {
-          GamerTag: acct.data.profileUsers[0].settings[7].value,
-          Gamerpic: acct.data.profileUsers[0].settings[4].value,
-          Name: acct.data.profileUsers[0].settings[15].value,
-          Location: acct.data.profileUsers[0].settings[12].value,
-          Gamerscore: acct.data.profileUsers[0].settings[6].value,
-          Accounttier: acct.data.profileUsers[0].settings[8].value,
-          Reputation: acct.data.profileUsers[0].settings[10].value,
-          titles: ttls.data.titles,
-          dataloaded: true
-        }
-      )
-
-    }));
+    this.getUserProfile(token);
   }
 
 
@@ -132,8 +187,8 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
     }
   }
   public render() {
-    if (this.state.dataloaded) {
-      return (     
+    if (this.state.dataloaded && !this.state.restApiError) {
+      return (
         <div>
           <div id="container">
             <span id="profile">
@@ -179,15 +234,21 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
                   <div className="avatar-motto-heading">Account Tier</div>
                   <div className="avatar-motto">{this.state.Accounttier}</div>
                   <div className="avatar-bio-heading">Reputation</div>
-                  <div className="avatar-bio">{this.state.Reputation}?</div>
+                  <div className="avatar-bio">{this.state.Reputation}</div>
                   <div className="avatar-tenure">10</div>
                 </div>
               </span>
-            <Share invoke={{type:'gc',img:this.state.Gamerpic,gt:this.state.GamerTag}}></Share>
+              <Share invoke={{ type: 'gc', img: this.state.Gamerpic, gt: this.state.GamerTag }}></Share>
             </span>
           </div>
         </div>
       );
+    } else if (this.state.restApiError) {
+      return (
+        <Provider theme={themes.teams} >
+          <ErrorMessage />
+        </Provider>
+      )
     }
     else if (!this.state.dataloaded) {
       return (
@@ -208,7 +269,6 @@ export class gamercard extends TeamsBaseComponent<IGamerCardProps, IGamerCardSta
             Please wait while the data is beign loaded
           </div>
         </div>
-
       )
     }
   }

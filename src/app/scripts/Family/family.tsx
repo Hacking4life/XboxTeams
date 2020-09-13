@@ -5,10 +5,15 @@ import { AuthenticationService } from "../Utilities/AuthenticationService"
 import { AuthToken } from "../Utilities/Model/AuthToken"
 const axios = require('axios');
 const queryString = require('query-string');
+import { Provider, themes} from "@fluentui/react-northstar";
+import {ErrorMessage} from "../ErrorMessage/error";
+import * as https from "https";
+import * as querystring from "querystring";
 
 export interface IFamilyState extends ITeamsBaseComponentState {
   FamilyUsers: Array<any>
   dataloaded: boolean
+  restApiError:boolean
 }
 
 export interface IFamilyProps {
@@ -18,37 +23,73 @@ export interface FamilycardProp {
 }
 export class family extends TeamsBaseComponent<IFamilyProps, IFamilyState> {
 
+  constructor(props)
+  {
+    super(props);
+    this.getMembers.bind(this);
+  }
+
   public getMembers(token: AuthToken) {
     if (token != null && typeof (token) != "undefined") {
-      return axios({
-        method: 'get',
-        baseURL: 'https://cors-anywhere.herokuapp.com/https://accounts.xboxlive.com/',   /// will be removed once ajits node package is available
-        url: `/family/memberXuid(${token.userXUID})`,
+      const postData = querystring.stringify({
+        xuid: token.userXUID,
+        uhash: token.userHash,
+        token: token.XSTSToken
+      });
+      const options = {
+        path: "https://xboxliveauthenticatorservice.azurewebsites.net/family",
+        method: "POST",
         headers: {
-          'x-xbl-contract-version': '2', 'Authorization': `XBL3.0 x=${token.userHash};${token.XSTSToken}`,
-          timeout: 1000
+          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Length": postData.length
         }
-      })
+      };
+      let family_json=""; 
+      let ctx=this;
+      const req = https.request(options, (res) => {
+        res.setEncoding('utf8');
+        res.on("data" , function (chunk) {
+          family_json += chunk;
+        });
+        res.on("end",  function () {
+          try {
+            const family: any = JSON.parse(family_json.toString());
+            ctx.setState({
+              FamilyUsers: family.familyUsers,
+              dataloaded: true,
+              restApiError:false
+            })
+          }
+          catch (ex) {
+            console.log(ex);
+            ctx.setState({
+              restApiError: true,
+              dataloaded: false
+            });
+            window.location.reload(false);
+          } });
+
+      });
+      req.on("error", (e) => {
+        console.error(e);
+        ctx.setState({
+          restApiError: true,
+          dataloaded: false
+        });
+      });
+      req.write(postData);
+      req.end();
     }
   }
 
   public async componentWillMount() {
-    this.setState({ FamilyUsers: [], dataloaded: false })
+    this.setState({ FamilyUsers: [], dataloaded: false ,restApiError:false})
     const token: AuthToken = queryString.parse(location.search);
-    // var authService = new AuthenticationService();
-    // // var token: AuthToken = authService.GetTokenFromFile();
-    // let token: AuthToken = await authService.getUserToken("arunjb2016@gmail.com", "Clannad@01");
-    var context = this;
-    axios.all([this.getMembers(token)]).then(axios.spread(function (family) {
-      context.setState({
-        FamilyUsers: family.data.familyUsers,
-        dataloaded: true
-      })
-    }))
+    this.getMembers(token);
   }
 
   public render() {
-    if (this.state.dataloaded) {
+    if (this.state.dataloaded && !this.state.restApiError) {
       return (<section id="team" className="pb-5">
         <div className="container">
           <h5 className="section-title h1">Your Family</h5>
@@ -109,6 +150,14 @@ export class family extends TeamsBaseComponent<IFamilyProps, IFamilyState> {
           </div>
         </div>
       </section>)
+    }
+    else if (this.state.restApiError)
+    {
+      return(
+      <Provider theme={themes.teams} > 
+<ErrorMessage/>
+    </Provider>
+      )
     }
     else {
       return (

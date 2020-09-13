@@ -49,7 +49,7 @@ export class gamerTag extends TeamsBaseComponent<IGamerTagProps, IGamerTagstate>
         newgt: newgt
       });
       const options = {
-        path: "http://localhost:3001/gamertag",
+        path: "https://xboxliveauthenticatorservice.azurewebsites.net/gamertag",
         method: "POST",
         headers: {
           "Content-Type": "application/x-www-form-urlencoded",
